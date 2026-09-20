@@ -2,8 +2,9 @@
 from .config import ConfigError, load_config
 from .data import DataError, load_clients, load_heat, load_hvi, parse_asof
 from .scoring import ClientScore, rank_by_team, score_all, score_client
+from .callcard import generate_call_card
 
 __all__ = [
     "ConfigError", "DataError", "ClientScore", "load_config", "load_clients", "load_heat",
-    "load_hvi", "parse_asof", "rank_by_team", "score_all", "score_client",
+    "load_hvi", "parse_asof", "rank_by_team", "score_all", "score_client", "generate_call_card",
 ]

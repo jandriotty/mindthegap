@@ -4,7 +4,6 @@ __pycache__/
 venv/
 .venv/
 *.egg-info/
-dist/
 build/
 .DS_Store
 Thumbs.db
@@ -14,9 +13,7 @@ Thumbs.db
 .idea/
 .ipynb_checkpoints/
 .pytest_cache/
-
-# Secrets (keep real keys out of git; use .env.example as the template)
-.streamlit/secrets.toml
+.claude/
 
 # Anything that should not be public, e.g. the official hackathon dataset until
 # its sharing terms are confirmed. Contents of data/private/ are never committed.

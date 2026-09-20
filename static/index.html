@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0B3A5B">
+  <title>Heat Check-In · NYC</title>
+  <link rel="icon" type="image/svg+xml" href="brandmark.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-route="home">
+<header>
+  <a class="brand" href="#home" aria-label="Heat Check-In home">
+    <img class="brandmark" src="brandmark.svg" alt="">
+    <span>Heat Check-In</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <a href="#home">Overview</a>
+    <a href="#workspace">Call sheet</a>
+    <button id="sources">Data &amp; provenance</button>
+  </nav>
+  <span class="pill environment"><span class="status-dot"></span> NYC · Synthetic demo</span>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow light">BEHAVIORAL HEALTH · EXTREME HEAT</span>
+      <h1>Turn a heat alert into a human check-in.</h1>
+      <p>One explained call list. Only the questions that matter. Every next step has an owner.</p>
+      <div class="hero-actions">
+        <a class="primary hero-primary" href="#workspace">Open team call sheet <span>&#8599;</span></a>
+        <button class="text-link" data-open-sources>See the data <span>&#8599;</span></button>
+      </div>
+      <div class="hero-trust"><span>10</span> synthetic clients <b>·</b> <span>17</span> risk factors <b>·</b> zero patient data</div>
+    </div>
+
+    <div class="hero-product" aria-label="Product preview">
+      <div class="preview-window">
+        <div class="preview-topbar"><span class="preview-brand">Heat Check-In</span><span class="preview-team">Rule engine scored</span></div>
+        <div class="preview-alert"><span class="alert-orb"></span><div><small>HEAT ADVISORY</small><strong>Heat response is active</strong></div><span class="preview-date">Jul 23</span></div>
+        <div class="preview-title"><div><small>TODAY'S CALL SHEET</small><strong id="preview-count">Scoring clients...</strong></div><span>View all &#8599;</span></div>
+        <div class="preview-person hot"><div class="preview-avatar">01</div><div><strong>SYN-001</strong><p>Unknown cooling · Lives alone</p></div><span class="preview-chip">Urgent</span></div>
+        <div class="preview-person"><div class="preview-avatar">05</div><div><strong>SYN-005</strong><p>No cooling · Energy insecure</p></div><span class="preview-arrow">&#8599;</span></div>
+        <div class="preview-resolution"><span>&#10003;</span><div><small>CLOSED LOOP</small><strong>Support is verified — not just referred</strong></div></div>
+      </div>
+      <div class="floating-note"><b>Built for the call</b><span>not another dashboard</span></div>
+    </div>
+  </section>
+
+  <section class="workflow" aria-labelledby="workflow-title">
+    <div class="workflow-intro">
+      <span class="eyebrow light">THE WORKFLOW</span>
+      <h2 id="workflow-title">Alert in.<br>Support through.</h2>
+      <p>Designed around the care navigator's next action — not a black-box risk score.</p>
+    </div>
+    <div class="workflow-steps">
+      <article><span>01</span><div><small>PRIORITIZE</small><h3>Know who to call first.</h3><p>Named reasons, confidence levels, and separately labeled neighborhood context from the rule engine.</p></div></article>
+      <article><span>02</span><div><small>CHECK IN</small><h3>Ask less. Learn more.</h3><p>AI-generated call cards start with what is known and ask only what the engine says is missing or outdated.</p></div></article>
+      <article><span>03</span><div><small>FOLLOW THROUGH</small><h3>Close the loop.</h3><p>Route each need to an owner and keep it open until support is verified.</p></div></article>
+    </div>
+  </section>
+
+  <section class="principles">
+    <div><span class="kicker blue">WHY IT'S DIFFERENT</span><h2>Small signals.<br>Clear action.</h2></div>
+    <div class="principle-grid">
+      <article><b>01</b><h3>Explain every priority</h3><p>No unexplained clinical score. The interface shows the exact factors, evidence, and confidence.</p></article>
+      <article><b>02</b><h3>Keep "unknown" visible</h3><p>Missing information becomes a scored range, never a false assumption of safety.</p></article>
+      <article><b>03</b><h3>Remember the answer</h3><p>Each confirmed answer sharpens the next event's call card.</p></article>
+    </div>
+  </section>
+</main>
+
+<main id="workspace" hidden>
+  <div class="workspace-title">
+    <div><span class="eyebrow" id="ws-eyebrow">TEAM WORKSPACE</span><h1>Today's heat check-ins <span class="muted">/ Demo</span></h1></div>
+    <div class="actions"><button id="team-filter">All teams</button></div>
+  </div>
+  <div id="event"></div>
+  <div class="workspace-body">
+    <section class="work-panel" aria-label="Outreach workflow">
+      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="detail" style="display:none">Client detail</button><button id="guide-button">How it works &#8599;</button></div>
+      <div id="work"><div class="empty">Loading engine scores...</div></div>
+    </section>
+  </div>
+</main>
+
+<dialog id="info"><div class="dialog-head"><h2 id="info-title"></h2><button id="close-info" aria-label="Close dialog">&#10005;</button></div><div id="info-body"></div></dialog>
+<div role="status" id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

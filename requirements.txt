@@ -1,4 +1,3 @@
-streamlit
-pandas
+flask
 anthropic
 python-dotenv
