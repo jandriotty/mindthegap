@@ -1,0 +1,827 @@
+{
+  "dataset": {
+    "name": "heat-checkin-synthetic-clients",
+    "version": "0.1",
+    "extract_date": "2026-07-20",
+    "synthetic": true,
+    "note": "All clients are fictional. null = never collected/unknown; {v: []} = confirmed none. Every provenance field is {v, src, asof}."
+  },
+  "clients": [
+    {
+      "client_id": "SYN-001",
+      "age": 52,
+      "program_type": "ACT",
+      "team_id": "TEAM-ACT-BX-1",
+      "other_teams": [
+        "TEAM-HH-BX-1"
+      ],
+      "assigned_worker_id": "W-101",
+      "borough": "Bronx",
+      "zip": "10457",
+      "dx": {
+        "v": [
+          "F20.9"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-11"
+      },
+      "medications": null,
+      "chronic_conditions": {
+        "v": [
+          "hypertension"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-01-01"
+      },
+      "substance_use_current": {
+        "v": [],
+        "src": "intake_assessment",
+        "asof": "2025-06-15"
+      },
+      "sud_records_status": "none_on_file",
+      "housing_type": {
+        "v": "supportive_housing_scattered_site",
+        "src": "housing_provider",
+        "asof": "2025-06-15"
+      },
+      "floor_level": {
+        "v": 6,
+        "src": "housing_provider",
+        "asof": "2025-06-15"
+      },
+      "cooling_status": null,
+      "lives_alone": {
+        "v": true,
+        "src": "intake_assessment",
+        "asof": "2025-05-16"
+      },
+      "mobility_limited": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-04-21"
+      },
+      "leaves_home_daily": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-04-21"
+      },
+      "outdoor_exposure": {
+        "v": "low",
+        "src": "progress_note",
+        "asof": "2026-04-21"
+      },
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-06-24",
+        "type": "case_management"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 1,
+          "sites": 1
+        },
+        "src": "hie_alert",
+        "asof": "2026-06-10"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "unverified",
+        "verified_date": "2025-09-18",
+        "preferred_method": "phone",
+        "alternate": "housing_onsite_staff"
+      }
+    },
+    {
+      "client_id": "SYN-002",
+      "age": 58,
+      "program_type": "OUTPATIENT_CLINIC",
+      "team_id": "TEAM-OPC-BK-2",
+      "other_teams": [],
+      "assigned_worker_id": "W-102",
+      "borough": "Brooklyn",
+      "zip": "11226",
+      "dx": {
+        "v": [
+          "F33.2"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-06-05"
+      },
+      "medications": {
+        "v": [
+          {
+            "name": "quetiapine",
+            "src": "prescriber_note",
+            "asof": "2026-06-15"
+          },
+          {
+            "name": "diphenhydramine",
+            "src": "client_self_report",
+            "asof": "2026-06-15"
+          }
+        ],
+        "asof": "2026-06-15"
+      },
+      "chronic_conditions": {
+        "v": [
+          "type_2_diabetes"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-06-05"
+      },
+      "substance_use_current": {
+        "v": [],
+        "src": "intake_assessment",
+        "asof": "2026-06-05"
+      },
+      "sud_records_status": "none_on_file",
+      "housing_type": {
+        "v": "private_apartment",
+        "src": "clinic_ehr",
+        "asof": "2026-06-05"
+      },
+      "floor_level": {
+        "v": 5,
+        "src": "clinic_ehr",
+        "asof": "2026-06-05"
+      },
+      "cooling_status": {
+        "v": "fan_only",
+        "src": "progress_note",
+        "asof": "2026-06-29"
+      },
+      "lives_alone": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-29"
+      },
+      "mobility_limited": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-29"
+      },
+      "leaves_home_daily": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-06-29"
+      },
+      "outdoor_exposure": {
+        "v": "low",
+        "src": "progress_note",
+        "asof": "2026-06-29"
+      },
+      "energy_insecurity": {
+        "v": false,
+        "src": "client_self_report",
+        "asof": "2026-06-29"
+      },
+      "last_billed_service": {
+        "date": "2026-07-11",
+        "type": "medication_management"
+      },
+      "ed_use_90d": null,
+      "hie_consent_status": "undecided",
+      "contact": {
+        "phone_status": "verified",
+        "verified_date": "2026-06-30",
+        "preferred_method": "phone",
+        "alternate": "family_member"
+      }
+    },
+    {
+      "client_id": "SYN-003",
+      "age": 44,
+      "program_type": "COMMUNITY_TREATMENT",
+      "team_id": "TEAM-COM-MN-1",
+      "other_teams": [],
+      "assigned_worker_id": "W-103",
+      "borough": "Manhattan",
+      "zip": "10035",
+      "dx": {
+        "v": [
+          "F31.9"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-03-22"
+      },
+      "medications": null,
+      "chronic_conditions": null,
+      "substance_use_current": null,
+      "sud_records_status": "restricted_part2",
+      "housing_type": {
+        "v": "unsheltered",
+        "src": "street_outreach_note",
+        "asof": "2026-07-02"
+      },
+      "floor_level": null,
+      "cooling_status": {
+        "v": "not_applicable",
+        "src": "street_outreach_note",
+        "asof": "2026-07-02"
+      },
+      "lives_alone": null,
+      "mobility_limited": null,
+      "leaves_home_daily": {
+        "v": true,
+        "src": "street_outreach_note",
+        "asof": "2026-07-02"
+      },
+      "outdoor_exposure": {
+        "v": "high",
+        "src": "street_outreach_note",
+        "asof": "2026-07-02"
+      },
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-05-10",
+        "type": "case_management"
+      },
+      "ed_use_90d": null,
+      "hie_consent_status": "denied",
+      "contact": {
+        "phone_status": "none_on_file",
+        "verified_date": null,
+        "preferred_method": "in_person_outreach",
+        "alternate": "street_outreach_team"
+      }
+    },
+    {
+      "client_id": "SYN-004",
+      "age": 34,
+      "program_type": "OUTPATIENT_CLINIC",
+      "team_id": "TEAM-OPC-QN-1",
+      "other_teams": [],
+      "assigned_worker_id": "W-104",
+      "borough": "Queens",
+      "zip": "11368",
+      "dx": {
+        "v": [
+          "F41.1",
+          "F43.10"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-06-20"
+      },
+      "medications": {
+        "v": [
+          {
+            "name": "sertraline",
+            "src": "prescriber_note",
+            "asof": "2026-06-20"
+          }
+        ],
+        "asof": "2026-06-20"
+      },
+      "chronic_conditions": {
+        "v": [],
+        "src": "clinic_ehr",
+        "asof": "2026-06-20"
+      },
+      "substance_use_current": {
+        "v": [],
+        "src": "intake_assessment",
+        "asof": "2026-06-20"
+      },
+      "sud_records_status": "none_on_file",
+      "housing_type": {
+        "v": "private_apartment",
+        "src": "clinic_ehr",
+        "asof": "2026-06-20"
+      },
+      "floor_level": {
+        "v": 2,
+        "src": "clinic_ehr",
+        "asof": "2026-06-20"
+      },
+      "cooling_status": {
+        "v": "working_ac",
+        "src": "client_self_report",
+        "asof": "2026-05-21"
+      },
+      "lives_alone": {
+        "v": false,
+        "src": "client_self_report",
+        "asof": "2026-05-21"
+      },
+      "mobility_limited": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-20"
+      },
+      "leaves_home_daily": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-06-20"
+      },
+      "outdoor_exposure": {
+        "v": "low",
+        "src": "progress_note",
+        "asof": "2026-06-20"
+      },
+      "energy_insecurity": {
+        "v": false,
+        "src": "client_self_report",
+        "asof": "2026-05-21"
+      },
+      "last_billed_service": {
+        "date": "2026-07-14",
+        "type": "therapy"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 0,
+          "sites": 0
+        },
+        "src": "hie_alert",
+        "asof": "2026-07-15"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "verified",
+        "verified_date": "2026-07-08",
+        "preferred_method": "text",
+        "alternate": null
+      }
+    },
+    {
+      "client_id": "SYN-005",
+      "age": 68,
+      "program_type": "HEALTH_HOME_CM",
+      "team_id": "TEAM-HH-BK-1",
+      "other_teams": [],
+      "assigned_worker_id": "W-105",
+      "borough": "Brooklyn",
+      "zip": "11212",
+      "dx": {
+        "v": [
+          "F31.81",
+          "F10.20"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-21"
+      },
+      "medications": {
+        "v": [
+          {
+            "name": "lithium",
+            "src": "prescriber_note",
+            "asof": "2026-05-21"
+          },
+          {
+            "name": "lisinopril",
+            "src": "clinic_med_list",
+            "asof": "2026-05-21"
+          },
+          {
+            "name": "furosemide",
+            "src": "clinic_med_list",
+            "asof": "2026-05-21"
+          }
+        ],
+        "asof": "2026-05-21"
+      },
+      "chronic_conditions": {
+        "v": [
+          "hypertension",
+          "type_2_diabetes",
+          "heart_failure"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-21"
+      },
+      "substance_use_current": {
+        "v": [
+          "alcohol"
+        ],
+        "src": "progress_note",
+        "asof": "2026-06-05"
+      },
+      "sud_records_status": "shared_with_consent",
+      "housing_type": {
+        "v": "supportive_housing_scattered_site",
+        "src": "housing_provider",
+        "asof": "2026-04-11"
+      },
+      "floor_level": {
+        "v": 4,
+        "src": "housing_provider",
+        "asof": "2026-04-11"
+      },
+      "cooling_status": {
+        "v": "none",
+        "src": "housing_provider",
+        "asof": "2026-04-16"
+      },
+      "lives_alone": {
+        "v": true,
+        "src": "intake_assessment",
+        "asof": "2026-05-21"
+      },
+      "mobility_limited": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-06-05"
+      },
+      "leaves_home_daily": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-05"
+      },
+      "outdoor_exposure": {
+        "v": "low",
+        "src": "progress_note",
+        "asof": "2026-06-05"
+      },
+      "energy_insecurity": {
+        "v": true,
+        "src": "client_self_report",
+        "asof": "2026-05-21"
+      },
+      "last_billed_service": {
+        "date": "2026-07-05",
+        "type": "care_management"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 2,
+          "sites": 1
+        },
+        "src": "hie_alert",
+        "asof": "2026-07-08"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "verified",
+        "verified_date": "2026-06-30",
+        "preferred_method": "phone",
+        "alternate": "housing_onsite_staff"
+      }
+    },
+    {
+      "client_id": "SYN-006",
+      "age": 47,
+      "program_type": "OUTPATIENT_CLINIC",
+      "team_id": "TEAM-OPC-BX-2",
+      "other_teams": [],
+      "assigned_worker_id": "W-106",
+      "borough": "Bronx",
+      "zip": "10467",
+      "dx": {
+        "v": [
+          "F33.1"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2025-03-07"
+      },
+      "medications": null,
+      "chronic_conditions": null,
+      "substance_use_current": null,
+      "sud_records_status": "unknown",
+      "housing_type": null,
+      "floor_level": null,
+      "cooling_status": null,
+      "lives_alone": null,
+      "mobility_limited": null,
+      "leaves_home_daily": null,
+      "outdoor_exposure": null,
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-03-02",
+        "type": "medication_management"
+      },
+      "ed_use_90d": null,
+      "hie_consent_status": "unknown",
+      "contact": {
+        "phone_status": "unverified",
+        "verified_date": "2024-12-17",
+        "preferred_method": null,
+        "alternate": null
+      }
+    },
+    {
+      "client_id": "SYN-007",
+      "age": 41,
+      "program_type": "COMMUNITY_TREATMENT",
+      "team_id": "TEAM-COM-SI-1",
+      "other_teams": [],
+      "assigned_worker_id": "W-107",
+      "borough": "Staten Island",
+      "zip": "10301",
+      "dx": {
+        "v": [
+          "F14.20",
+          "F10.20"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-21"
+      },
+      "medications": {
+        "v": [],
+        "asof": "2026-05-21"
+      },
+      "chronic_conditions": null,
+      "substance_use_current": {
+        "v": [
+          "stimulant",
+          "alcohol"
+        ],
+        "src": "progress_note",
+        "asof": "2026-06-25"
+      },
+      "sud_records_status": "shared_with_consent",
+      "housing_type": {
+        "v": "family_home",
+        "src": "client_self_report",
+        "asof": "2026-06-25"
+      },
+      "floor_level": {
+        "v": 2,
+        "src": "client_self_report",
+        "asof": "2026-06-25"
+      },
+      "cooling_status": {
+        "v": "fan_only",
+        "src": "client_self_report",
+        "asof": "2026-06-25"
+      },
+      "lives_alone": {
+        "v": false,
+        "src": "client_self_report",
+        "asof": "2026-06-25"
+      },
+      "mobility_limited": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-25"
+      },
+      "leaves_home_daily": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-06-25"
+      },
+      "outdoor_exposure": {
+        "v": "high",
+        "src": "progress_note",
+        "asof": "2026-06-25"
+      },
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-07-09",
+        "type": "counseling"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 1,
+          "sites": 1
+        },
+        "src": "hie_alert",
+        "asof": "2026-06-20"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "verified",
+        "verified_date": "2026-06-17",
+        "preferred_method": "phone",
+        "alternate": "family_member"
+      }
+    },
+    {
+      "client_id": "SYN-008",
+      "age": 45,
+      "program_type": "SUPPORTIVE_HOUSING",
+      "team_id": "TEAM-SH-MN-1",
+      "other_teams": [],
+      "assigned_worker_id": "W-108",
+      "borough": "Manhattan",
+      "zip": "10027",
+      "dx": {
+        "v": [
+          "F33.3"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-21"
+      },
+      "medications": null,
+      "chronic_conditions": {
+        "v": [
+          "obesity"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2025-09-23"
+      },
+      "substance_use_current": {
+        "v": [],
+        "src": "intake_assessment",
+        "asof": "2025-09-23"
+      },
+      "sud_records_status": "none_on_file",
+      "housing_type": {
+        "v": "supportive_housing_congregate_site",
+        "src": "housing_provider",
+        "asof": "2024-05-21"
+      },
+      "floor_level": {
+        "v": 1,
+        "src": "housing_provider",
+        "asof": "2024-05-21"
+      },
+      "cooling_status": {
+        "v": "working_ac",
+        "src": "housing_provider",
+        "asof": "2024-05-21"
+      },
+      "lives_alone": {
+        "v": true,
+        "src": "intake_assessment",
+        "asof": "2024-05-21"
+      },
+      "mobility_limited": null,
+      "leaves_home_daily": null,
+      "outdoor_exposure": null,
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-07-11",
+        "type": "case_management"
+      },
+      "ed_use_90d": null,
+      "hie_consent_status": "undecided",
+      "contact": {
+        "phone_status": "unverified",
+        "verified_date": "2024-05-21",
+        "preferred_method": "via_housing_staff",
+        "alternate": "housing_onsite_staff"
+      }
+    },
+    {
+      "client_id": "SYN-009",
+      "age": 39,
+      "program_type": "HEALTH_HOME_CM",
+      "team_id": "TEAM-HH-BK-1",
+      "other_teams": [
+        "TEAM-SHELTER-BK-3"
+      ],
+      "assigned_worker_id": "W-105",
+      "borough": "Brooklyn",
+      "zip": "11207",
+      "dx": {
+        "v": [
+          "F31.9",
+          "F10.20"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-04-21"
+      },
+      "medications": null,
+      "chronic_conditions": null,
+      "substance_use_current": {
+        "v": [
+          "alcohol"
+        ],
+        "src": "progress_note",
+        "asof": "2026-06-30"
+      },
+      "sud_records_status": "shared_with_consent",
+      "housing_type": {
+        "v": "shelter",
+        "src": "housing_provider",
+        "asof": "2026-06-30"
+      },
+      "floor_level": null,
+      "cooling_status": null,
+      "lives_alone": null,
+      "mobility_limited": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-06-30"
+      },
+      "leaves_home_daily": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-06-30"
+      },
+      "outdoor_exposure": {
+        "v": "moderate",
+        "src": "progress_note",
+        "asof": "2026-06-30"
+      },
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-07-15",
+        "type": "care_management"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 4,
+          "sites": 3
+        },
+        "src": "hie_alert",
+        "asof": "2026-07-17"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "verified",
+        "verified_date": "2026-07-12",
+        "preferred_method": "phone",
+        "alternate": "shelter_staff"
+      }
+    },
+    {
+      "client_id": "SYN-010",
+      "age": 64,
+      "program_type": "SUPPORTIVE_HOUSING",
+      "team_id": "TEAM-SH-QN-1",
+      "other_teams": [
+        "TEAM-HH-QN-2"
+      ],
+      "assigned_worker_id": "W-109",
+      "borough": "Queens",
+      "zip": "11433",
+      "dx": {
+        "v": [
+          "F41.1",
+          "F32.A"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-31"
+      },
+      "medications": {
+        "v": [
+          {
+            "name": "lorazepam",
+            "src": "prescriber_note",
+            "asof": "2026-05-31"
+          }
+        ],
+        "asof": "2026-05-31"
+      },
+      "chronic_conditions": {
+        "v": [
+          "hypertension"
+        ],
+        "src": "clinic_ehr",
+        "asof": "2026-05-31"
+      },
+      "substance_use_current": {
+        "v": [],
+        "src": "intake_assessment",
+        "asof": "2026-05-31"
+      },
+      "sud_records_status": "none_on_file",
+      "housing_type": {
+        "v": "supportive_housing_scattered_site",
+        "src": "housing_provider",
+        "asof": "2026-03-22"
+      },
+      "floor_level": {
+        "v": 3,
+        "src": "housing_provider",
+        "asof": "2026-03-22"
+      },
+      "cooling_status": {
+        "v": "working_ac",
+        "src": "housing_provider",
+        "asof": "2026-03-22"
+      },
+      "lives_alone": {
+        "v": true,
+        "src": "intake_assessment",
+        "asof": "2025-09-23"
+      },
+      "mobility_limited": {
+        "v": true,
+        "src": "progress_note",
+        "asof": "2026-05-31"
+      },
+      "leaves_home_daily": {
+        "v": false,
+        "src": "progress_note",
+        "asof": "2026-05-31"
+      },
+      "outdoor_exposure": {
+        "v": "low",
+        "src": "progress_note",
+        "asof": "2026-05-31"
+      },
+      "energy_insecurity": null,
+      "last_billed_service": {
+        "date": "2026-06-16",
+        "type": "medication_management"
+      },
+      "ed_use_90d": {
+        "v": {
+          "visits": 0,
+          "sites": 0
+        },
+        "src": "hie_alert",
+        "asof": "2026-06-20"
+      },
+      "hie_consent_status": "on_file",
+      "contact": {
+        "phone_status": "disconnected",
+        "verified_date": "2025-12-22",
+        "preferred_method": "via_housing_staff",
+        "alternate": "housing_onsite_staff"
+      }
+    }
+  ]
+}
