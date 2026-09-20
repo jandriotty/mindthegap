@@ -5,6 +5,9 @@ let data = null;
 let selected = null;
 let filter = 'all';
 let callcards = {};
+let mapView = null;
+let edChart = null;
+let mapDataLoaded = false;
 
 const bandLabels = {urgent:'Urgent',high:'High',moderate:'Moderate',low:'Low',monitor:'Monitor'};
 const bandOrder = ['urgent','high','moderate','low','monitor'];
@@ -41,12 +44,15 @@ function render() {
 
   $('#ws-eyebrow').textContent = `TEAM WORKSPACE · ${Object.keys(data.teams).length} TEAMS · ${data.clients.length} CLIENTS`;
 
-  document.querySelectorAll('[data-view]').forEach(b => {
-    b.classList.toggle('active', (selected ? 'detail' : 'list') === b.dataset.view);
-  });
-
-  if (selected) renderCard();
-  else renderList();
+  const isMapActive = !$('#map-view').hidden;
+  if (!isMapActive) {
+    document.querySelectorAll('[data-view]').forEach(b => {
+      b.classList.toggle('active', (selected ? 'detail' : 'list') === b.dataset.view);
+    });
+    $('#work').hidden = false;
+    if (selected) renderCard();
+    else renderList();
+  }
 }
 
 function renderList() {
@@ -250,6 +256,164 @@ function renderCallCard(card) {
     </div>`;
 }
 
+// --- map & data view ---
+const ZIP_CENTROIDS = {
+  '10027': [40.8116, -73.9527], '10035': [40.8009, -73.9303],
+  '10301': [40.6432, -74.0765], '10457': [40.8460, -73.8987],
+  '10467': [40.8795, -73.8710], '11207': [40.6718, -73.8864],
+  '11212': [40.6629, -73.9131], '11226': [40.6461, -73.9568],
+  '11368': [40.7490, -73.8523], '11433': [40.6979, -73.7879],
+};
+
+const HVI_COLORS = {1:'#73a68e', 2:'#b8c8a3', 3:'#d7bf7d', 4:'#d39568', 5:'#b76c5a'};
+
+async function initMap() {
+  if (mapDataLoaded) return;
+  mapDataLoaded = true;
+
+  const [geoRes, hviRes, edRes] = await Promise.all([
+    fetch('/data/nta-geo.json'), fetch('/data/hvi.json'), fetch('/data/heat-ed-visits.json')
+  ]);
+  const geoData = await geoRes.json();
+  const hviData = await hviRes.json();
+  const edData = await edRes.json();
+
+  const hviLookup = new Map(hviData.map(d => [d.ntaCode, d]));
+  const zctaHvi = {};
+  if (data) data.clients.forEach(c => { zctaHvi[c.zip] = c.hvi_rank; });
+
+  if (mapView) { mapView.remove(); mapView = null; }
+
+  mapView = L.map('nta-map', { zoomControl: false, scrollWheelZoom: false }).setView([40.7128, -73.95], 10);
+  L.control.zoom({ position: 'topright' }).addTo(mapView);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18
+  }).addTo(mapView);
+
+  const clientsByZip = {};
+  if (data) data.clients.forEach(c => {
+    if (!clientsByZip[c.zip]) clientsByZip[c.zip] = [];
+    clientsByZip[c.zip].push(c);
+  });
+
+  L.geoJSON(geoData, {
+    style(feature) {
+      const code = feature.properties.ntaCode;
+      const hvi = hviLookup.get(code);
+      const rank = hvi ? hvi.hviRank : 0;
+      return {
+        fillColor: rank ? HVI_COLORS[rank] : '#d6dfd8',
+        weight: 1, opacity: 0.8, color: '#ffffff',
+        fillOpacity: rank >= 4 ? 0.6 : 0.4
+      };
+    },
+    onEachFeature(feature, layer) {
+      const code = feature.properties.ntaCode;
+      const hvi = hviLookup.get(code);
+      let html = `<strong>${esc(feature.properties.name)}</strong>
+        <span class="popup-borough">${esc(feature.properties.borough)}</span>`;
+      if (hvi) {
+        html += `<div class="popup-stats">
+          <span>HVI Rank: <b style="color:${HVI_COLORS[hvi.hviRank]}">${hvi.hviRank}/5</b></span>
+          <span>Surface Temp: <b>${hvi.surfaceTemp}°F</b></span>
+          <span>AC Access: <b>${hvi.pctAC}%</b></span>
+          <span>Green Space: <b>${hvi.greenspace}%</b></span>
+        </div>`;
+      }
+      layer.bindPopup(html);
+      layer.on({
+        mouseover(e) { e.target.setStyle({ weight: 2, color: '#94a3b8', fillOpacity: 0.75 }); },
+        mouseout(e) { L.geoJSON().resetStyle && e.target.setStyle(L.geoJSON(geoData).options.style ? undefined : {}); layer.setStyle({
+          fillColor: hvi ? HVI_COLORS[hvi.hviRank] : '#d6dfd8',
+          weight: 1, opacity: 0.8, color: '#ffffff',
+          fillOpacity: hvi && hvi.hviRank >= 4 ? 0.6 : 0.4
+        }); }
+      });
+    }
+  }).addTo(mapView);
+
+  Object.entries(clientsByZip).forEach(([zip, clients]) => {
+    const coords = ZIP_CENTROIDS[zip];
+    if (!coords) return;
+    const marker = L.circleMarker(coords, {
+      radius: 6 + clients.length * 2,
+      fillColor: '#0284c7', color: '#fff', weight: 2,
+      fillOpacity: 0.85
+    }).addTo(mapView);
+
+    const hvi = zctaHvi[zip] || '?';
+    let html = `<strong>ZIP ${zip}</strong>
+      <span class="popup-borough">HVI: ${hvi}/5 · ${clients.length} client${clients.length > 1 ? 's' : ''}</span>`;
+    clients.forEach(c => {
+      html += `<div class="popup-client">
+        <a data-goto="${c.client_id}">${esc(c.client_id)}</a>
+        <span class="band ${c.band}" style="font-size:10px;margin-left:6px">${bandLabels[c.band]}</span>
+        <br><span style="font-size:11px;color:#64748b">${esc(c.reasons.slice(0,1).map(r=>r.text).join(''))}</span>
+      </div>`;
+    });
+    marker.bindPopup(html);
+    marker.on('popupopen', () => {
+      document.querySelectorAll('[data-goto]').forEach(a => {
+        a.onclick = () => { selected = a.dataset.goto; showWorkView('detail'); };
+      });
+    });
+  });
+
+  setTimeout(() => mapView.invalidateSize(), 100);
+
+  renderEdChart(edData);
+}
+
+function renderEdChart(edData) {
+  const canvas = document.getElementById('ed-chart');
+  if (!canvas || typeof Chart === 'undefined') return;
+  if (edChart) { edChart.destroy(); edChart = null; }
+
+  const points = edData.filter(d => d.edVisits > 0).map(d => ({ x: d.maxTemp, y: d.edVisits }));
+  const bg = points.map(d => d.x >= 95 ? 'rgba(225,29,72,0.6)' : 'rgba(2,132,199,0.35)');
+
+  edChart = new Chart(canvas, {
+    type: 'scatter',
+    data: { datasets: [{ data: points, backgroundColor: bg, pointRadius: 3.5, pointHoverRadius: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.raw.y} ED visits at ${ctx.raw.x}°F`
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Max daily temperature (°F)', font: { size: 12 } },
+             grid: { color: '#f1f5f9' }, min: 60, max: 110 },
+        y: { title: { display: true, text: 'Heat-related ED visits', font: { size: 12 } },
+             grid: { color: '#f1f5f9' }, min: 0 }
+      }
+    }
+  });
+}
+
+function showWorkView(view) {
+  const isMap = view === 'map';
+  $('#work').hidden = isMap;
+  $('#map-view').hidden = !isMap;
+  document.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.querySelector(`[data-view="${view}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  if (isMap) {
+    initMap();
+  } else if (view === 'list') {
+    selected = null;
+    render();
+  } else if (view === 'detail' && selected) {
+    render();
+  }
+}
+
 // --- routing and init ---
 function route() {
   const work = location.hash === '#workspace';
@@ -263,9 +427,7 @@ $('#close-info').onclick = () => $('#info').close();
 window.onhashchange = route;
 
 document.querySelectorAll('[data-view]').forEach(b =>
-  b.onclick = () => {
-    if (b.dataset.view === 'list') { selected = null; render(); }
-  });
+  b.onclick = () => showWorkView(b.dataset.view));
 
 $('#guide-button').onclick = () => modal('Your check-in guide',
   `<p><b>1. Understand the priority.</b> Open a client to see the full factor breakdown &mdash; every factor, its evidence, its state, and its contribution to the score.</p>
@@ -277,7 +439,8 @@ $('#sources').onclick = () => modal('Data &amp; provenance',
   `<p><b>Rule engine:</b> 17 factors scored with a log-odds additive scorecard. Weights are from published heat-health studies (Bouchama 2007, Semenza 1996) where available; remaining weights are assumed defaults. See docs/rule-engine.md.</p>
    <p><b>Synthetic clients:</b> 10 hand-crafted records designed to test engine edge cases (psychotic-spectrum diagnosis, medication proxies, thin files, stale data, restricted records, cross-facility ED patterns). No real patient data.</p>
    <p><b>Synthetic heat events:</b> A 7-day NYC heat wave (Jul 20&ndash;26, 2026) with hourly truth, NWS-style alerts, and forecast error models. Peak: Manhattan heat index 107&deg;F on Thursday Jul 23.</p>
-   <p><b>HVI reference:</b> NYC Heat Vulnerability Index by ZIP (subset of 10 ZCTAs from NYC Open Data).</p>
+   <p><b>HVI reference:</b> NYC Heat Vulnerability Index by ZIP (subset of 10 ZCTAs from NYC Open Data). Map uses NTA-level HVI data (195 Neighborhood Tabulation Areas).</p>
+   <p><b>Heat ED visits:</b> NYC DOHMH Heat Syndrome Surveillance data (2017&ndash;2024) showing daily heat-related emergency department visits vs. max temperature (via Datawrapper snapshot).</p>
    <p><b>Call cards:</b> Generated per-client using the engine's factor results. LLM mode sends the scoring context to Claude; template mode uses deterministic rules. No real calls are placed.</p>
    <p><b>Storage:</b> Call cards are cached in browser memory only. The server computes scores on startup. No EHR or external system connections.</p>`);
 

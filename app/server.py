@@ -103,6 +103,7 @@ def _score_dict(s) -> dict:
         "cooling_asof": cooling.get("asof") if cooling else None,
         "housing_type": housing["v"] if housing else None,
         "medications": med_list,
+        "hvi_rank": hvi.get(s.zip),
         "hie_consent": client.get("hie_consent_status"),
         "contact": client.get("contact"),
         "hazard_focus": {

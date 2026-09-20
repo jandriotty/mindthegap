@@ -7,6 +7,7 @@
   <title>Heat Check-In · NYC</title>
   <link rel="icon" type="image/svg+xml" href="brandmark.svg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css">
 </head>
 <body data-route="home">
 <header>
@@ -79,14 +80,37 @@
   <div id="event"></div>
   <div class="workspace-body">
     <section class="work-panel" aria-label="Outreach workflow">
-      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="detail" style="display:none">Client detail</button><button id="guide-button">How it works &#8599;</button></div>
+      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="detail" style="display:none">Client detail</button><button data-view="map">Map &amp; data</button><button id="guide-button">How it works &#8599;</button></div>
       <div id="work"><div class="empty">Loading engine scores...</div></div>
+      <div id="map-view" hidden>
+        <div class="map-section">
+          <h2>Heat vulnerability by neighborhood</h2>
+          <p>NYC Neighborhood Tabulation Areas colored by Heat Vulnerability Index (1–5). Client locations shown by ZIP code.</p>
+          <div class="map-wrap">
+            <div id="nta-map"></div>
+            <div class="map-legend" id="map-legend">
+              <strong>Heat Vulnerability Index</strong>
+              <div class="legend-scale"><span style="background:#73a68e"></span><span style="background:#b8c8a3"></span><span style="background:#d7bf7d"></span><span style="background:#d39568"></span><span style="background:#b76c5a"></span></div>
+              <div class="legend-labels"><span>1 · Lower</span><span>5 · Higher</span></div>
+              <div class="legend-clients"><span class="client-marker-key"></span> Client location</div>
+            </div>
+          </div>
+        </div>
+        <div class="chart-section">
+          <h2>Heat-related ED visits vs. temperature</h2>
+          <p>NYC emergency department visits for heat illness (2017–2024). Visits spike non-linearly above ~95 °F.</p>
+          <canvas id="ed-chart"></canvas>
+          <p class="chart-source">Source: NYC DOHMH Heat Syndrome Surveillance via Datawrapper</p>
+        </div>
+      </div>
     </section>
   </div>
 </main>
 
 <dialog id="info"><div class="dialog-head"><h2 id="info-title"></h2><button id="close-info" aria-label="Close dialog">&#10005;</button></div><div id="info-body"></div></dialog>
 <div role="status" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script type="module" src="app.js"></script>
 </body>
 </html>

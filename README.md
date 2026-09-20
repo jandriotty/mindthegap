@@ -66,15 +66,16 @@ Given a scored client, generates a personalized call script:
 - **Landing page**: explains the product, workflow, and principles
 - **Call sheet**: scored and ranked client list with band filters, confidence indicators, and team grouping
 - **Client detail**: full factor breakdown, evidence, blind spots, and interactive call-card generation
+- **Map & data**: Leaflet choropleth of NYC neighborhoods colored by Heat Vulnerability Index (1–5), with client markers placed by ZIP code; scatter chart of heat-related ED visits vs. temperature (2017–2024)
 
-No framework — vanilla HTML served by Flask. No patient data stored.
+No framework — vanilla HTML + Leaflet + Chart.js served by Flask. No patient data stored.
 
 ## Layout
 
 ```
 mindthegap/
 ├── app/server.py             Flask API (engine + call cards + static files)
-├── static/                   Frontend (HTML/CSS/JS)
+├── static/                   Frontend (HTML/CSS/JS + map data)
 ├── src/mindthegap/           Rule engine
 │   ├── config.py             Load and validate config
 │   ├── data.py               Load clients, heat events, HVI
@@ -123,6 +124,9 @@ Both scripts are deterministic and run their own consistency checks.
 | Source | Type | Use |
 |--------|------|-----|
 | NYC HVI by ZCTA (NYC Open Data) | Real public data | Neighborhood-level heat vulnerability context |
+| NYC HVI by NTA (NYC Open Data) | Real public data | Map choropleth: 195 NTA boundaries colored by HVI rank |
+| NYC DOHMH Heat Syndrome Surveillance | Real public data | Scatter chart: heat-related ED visits vs. temperature (2017–2024) |
+| NYC NTA GeoJSON boundaries | Real public data | Map polygon boundaries for neighborhood display |
 | CDC Heat-Sensitive Medication Guidance | Real reference | Drug-class mapping for medication factors |
 | Bouchama 2007 meta-analysis, Semenza 1996 NEJM | Published studies | Odds ratios for factor weights |
 | NPCC4 Climate Projections | Real projections | Future heat-day estimates |
