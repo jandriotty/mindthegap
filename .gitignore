@@ -7,3 +7,17 @@ venv/
 dist/
 build/
 .DS_Store
+Thumbs.db
+
+# Editors and tooling
+.vscode/
+.idea/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Secrets (keep real keys out of git; use .env.example as the template)
+.streamlit/secrets.toml
+
+# Anything that should not be public, e.g. the official hackathon dataset until
+# its sharing terms are confirmed. Contents of data/private/ are never committed.
+data/private/
