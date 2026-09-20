@@ -74,35 +74,34 @@
 
 <main id="workspace" hidden>
   <div class="workspace-title">
-    <div><span class="eyebrow" id="ws-eyebrow">TEAM WORKSPACE</span><h1>Today's heat check-ins <span class="muted">/ Demo</span></h1></div>
-    <div class="actions"><button id="team-filter">All teams</button></div>
+    <div><span class="eyebrow" id="ws-eyebrow">TEAM WORKSPACE</span><h1>Today’s heat check-ins <span class="muted">/ Demo</span></h1></div>
+    <div class="actions">
+      <label class="team-select">Team <select id="team-filter"><option value="all">All teams</option></select></label>
+      <button id="reset">Reset demo</button>
+      <button id="event-toggle" class="primary">View readiness</button>
+    </div>
   </div>
   <div id="event"></div>
-  <div class="workspace-body">
-    <section class="work-panel" aria-label="Outreach workflow">
-      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="detail" style="display:none">Client detail</button><button data-view="map">Map &amp; data</button><button id="guide-button">How it works &#8599;</button></div>
-      <div id="work"><div class="empty">Loading engine scores...</div></div>
-      <div id="map-view" hidden>
-        <div class="map-section">
-          <h2>Heat vulnerability by neighborhood</h2>
-          <p>NYC Neighborhood Tabulation Areas colored by Heat Vulnerability Index (1–5). Client locations shown by ZIP code.</p>
-          <div class="map-wrap">
-            <div id="nta-map"></div>
-            <div class="map-legend" id="map-legend">
-              <strong>Heat Vulnerability Index</strong>
-              <div class="legend-scale"><span style="background:#73a68e"></span><span style="background:#b8c8a3"></span><span style="background:#d7bf7d"></span><span style="background:#d39568"></span><span style="background:#b76c5a"></span></div>
-              <div class="legend-labels"><span>1 · Lower</span><span>5 · Higher</span></div>
-              <div class="legend-clients"><span class="client-marker-key"></span> Client location</div>
-            </div>
-          </div>
-        </div>
-        <div class="chart-section">
-          <h2>Heat-related ED visits vs. temperature</h2>
-          <p>NYC emergency department visits for heat illness (2017–2024). Visits spike non-linearly above ~95 °F.</p>
-          <canvas id="ed-chart"></canvas>
-          <p class="chart-source">Source: NYC DOHMH Heat Syndrome Surveillance via Datawrapper</p>
+  <div class="split">
+    <section class="map-panel" aria-label="Neighborhood context">
+      <div class="map-head"><div><span class="eyebrow">AREA CONTEXT</span><h2>New York City</h2></div><span class="pill">Public HVI data</span></div>
+      <div class="hazard-summary" id="hazard-summary"></div>
+      <div class="map-wrap">
+        <div id="nta-map" aria-label="Interactive map of NYC neighborhood heat vulnerability"></div>
+        <div class="map-legend" id="map-legend">
+          <strong>Heat Vulnerability Index</strong>
+          <div class="legend-scale"><span style="background:#73a68e"></span><span style="background:#b8c8a3"></span><span style="background:#d7bf7d"></span><span style="background:#d39568"></span><span style="background:#b76c5a"></span></div>
+          <div class="legend-labels"><span>1 · Lower</span><span>5 · Higher</span></div>
+          <div class="legend-clients"><span class="client-marker-key"></span> Synthetic ZIP location</div>
         </div>
       </div>
+      <div class="map-caption">Neighborhood context and approximate synthetic ZIP centroids · Not individual addresses</div>
+      <div class="data-note"><b>Context, not a diagnosis.</b> HVI is neighborhood-level context and is not proof of an individual client’s cooling access.</div>
+      <details class="history"><summary>Historical heat context · 2017–2024</summary><div class="chart-section"><canvas id="ed-chart"></canvas><p class="chart-source">NYC DOHMH Heat Syndrome Surveillance · citywide observations</p></div></details>
+    </section>
+    <section class="work-panel" aria-label="Outreach workflow">
+      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="tasks">Follow-up <span id="task-count"></span></button><button id="guide-button">How it works &#8599;</button></div>
+      <div id="work"><div class="empty">Loading engine scores…</div></div>
     </section>
   </div>
 </main>
