@@ -1,3 +1,8 @@
 flask
 anthropic
 python-dotenv
+# httpx (an anthropic dependency) needs a real brotli decoder for compressed
+# API responses. Brotli<1.1 lacks the process(output_buffer_limit=...) kwarg
+# httpx calls, and fails with "process() takes no keyword arguments" the
+# first time a real LLM call card is generated.
+Brotli>=1.1

@@ -27,6 +27,11 @@ use disorders in New York City.
 
 Given a scored client profile, generate a call card with:
 1. A warm, professional greeting (2-3 sentences) appropriate for the person.
+   Address the client by their first name if one is provided (e.g. "Hi, is
+   this Marcus?"); if no name is given, use a neutral opening instead of a
+   placeholder like "[name]". Do not use the client's last name, diagnosis,
+   or medications in the greeting itself — save clinical detail for the
+   questions.
 2. 5-6 personalized check-in questions — skip confirmed facts, focus on gaps.
 3. A brief closing with heat-safety reminders.
 
@@ -69,8 +74,8 @@ def _build_user_prompt(score, client: dict) -> str:
     blind = [f"  - {v}" for v in score.visibility] if score.visibility else ["  (none)"]
 
     lines = [
-        f"CLIENT: {score.client_id}, age {client.get('age', '?')}, "
-        f"ZIP {score.zip}, borough {score.borough}",
+        f"CLIENT: {score.client_id}, first name {client.get('first_name') or '(not on file)'}, "
+        f"age {client.get('age', '?')}, ZIP {score.zip}, borough {score.borough}",
         f"Program: {client.get('program_type', '?')}, team {score.team_id}",
         "",
         f"PRIORITY: band={score.band}, range={score.band_range}",
@@ -217,8 +222,10 @@ def _generate_with_template(score, client: dict) -> dict:
         })
 
     focus = score.hazard.focus
+    first_name = client.get("first_name")
+    opening = f"Hi, is this {first_name}? " if first_name else "Hi there. "
     greeting = (
-        f"Hello, this is [your name] from [agency]. I'm calling to check in about "
+        f"{opening}This is your care team calling to check in about "
         f"the heat in your area. "
         f"{'There is a ' + focus.note.split(',')[0] + '. ' if focus.phase in ('prepare', 'action') else ''}"
         f"I want to make sure you have what you need to stay safe."

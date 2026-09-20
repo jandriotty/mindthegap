@@ -6,7 +6,7 @@
 | File | Use |
 |---|---|
 | `synthetic_clients.json` | Authoritative. Provenance fields are `{v, src, asof}`. |
-| `synthetic_clients.csv` | Flat, values only (34 columns), for quick loading and spreadsheets |
+| `synthetic_clients.csv` | Flat, values only (35 columns), for quick loading and spreadsheets |
 | `generate_synthetic_clients.py` | Rebuilds both and re-runs the checks |
 
 ## Conventions (the rule engine must respect these)
@@ -17,6 +17,7 @@
 - **Staleness:** every provenance field carries `asof`. Suggest flagging anything older than 12 months (tunable). SYN-008's "working_ac" is 26 months old.
 - **Absence of billing is weak evidence.** `last_billed_service` covers billed encounters only.
 - Race and ethnicity are deliberately excluded so they can't become rule inputs.
+- **`first_name`** is a fictional first name used only to personalize the AI call-script greeting (e.g. "Hello, is this Marcus?"). It is display/generation data, never a rule-engine input — same exclusion as race and ethnicity.
 
 ## Fields
 | Field | Values | Source(s) | Rule role (per variable ranking) |

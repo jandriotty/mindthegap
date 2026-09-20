@@ -77,6 +77,7 @@ def _score_dict(s) -> dict:
 
     return {
         "client_id": s.client_id,
+        "first_name": client.get("first_name"),
         "team_id": s.team_id,
         "borough": s.borough,
         "zip": s.zip,

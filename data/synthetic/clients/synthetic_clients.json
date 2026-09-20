@@ -4,11 +4,12 @@
     "version": "0.1",
     "extract_date": "2026-07-20",
     "synthetic": true,
-    "note": "All clients are fictional. null = never collected/unknown; {v: []} = confirmed none. Every provenance field is {v, src, asof}."
+    "note": "All clients are fictional. null = never collected/unknown; {v: []} = confirmed none. Every provenance field is {v, src, asof}. first_name is a fictional first name for call-script personalization only \u2014 never a rule-engine input, same exclusion as race/ethnicity."
   },
   "clients": [
     {
       "client_id": "SYN-001",
+      "first_name": "Marcus",
       "age": 52,
       "program_type": "ACT",
       "team_id": "TEAM-ACT-BX-1",
@@ -93,6 +94,7 @@
     },
     {
       "client_id": "SYN-002",
+      "first_name": "Linda",
       "age": 58,
       "program_type": "OUTPATIENT_CLINIC",
       "team_id": "TEAM-OPC-BK-2",
@@ -190,6 +192,7 @@
     },
     {
       "client_id": "SYN-003",
+      "first_name": "Devon",
       "age": 44,
       "program_type": "COMMUNITY_TREATMENT",
       "team_id": "TEAM-COM-MN-1",
@@ -247,6 +250,7 @@
     },
     {
       "client_id": "SYN-004",
+      "first_name": "Priya",
       "age": 34,
       "program_type": "OUTPATIENT_CLINIC",
       "team_id": "TEAM-OPC-QN-1",
@@ -345,6 +349,7 @@
     },
     {
       "client_id": "SYN-005",
+      "first_name": "Gloria",
       "age": 68,
       "program_type": "HEALTH_HOME_CM",
       "team_id": "TEAM-HH-BK-1",
@@ -459,6 +464,7 @@
     },
     {
       "client_id": "SYN-006",
+      "first_name": "Samuel",
       "age": 47,
       "program_type": "OUTPATIENT_CLINIC",
       "team_id": "TEAM-OPC-BX-2",
@@ -500,6 +506,7 @@
     },
     {
       "client_id": "SYN-007",
+      "first_name": "Angela",
       "age": 41,
       "program_type": "COMMUNITY_TREATMENT",
       "team_id": "TEAM-COM-SI-1",
@@ -587,6 +594,7 @@
     },
     {
       "client_id": "SYN-008",
+      "first_name": "Rashid",
       "age": 45,
       "program_type": "SUPPORTIVE_HOUSING",
       "team_id": "TEAM-SH-MN-1",
@@ -654,6 +662,7 @@
     },
     {
       "client_id": "SYN-009",
+      "first_name": "Teresa",
       "age": 39,
       "program_type": "HEALTH_HOME_CM",
       "team_id": "TEAM-HH-BK-1",
@@ -727,6 +736,7 @@
     },
     {
       "client_id": "SYN-010",
+      "first_name": "Wei",
       "age": 64,
       "program_type": "SUPPORTIVE_HOUSING",
       "team_id": "TEAM-SH-QN-1",

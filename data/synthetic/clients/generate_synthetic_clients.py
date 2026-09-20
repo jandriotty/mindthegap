@@ -45,7 +45,7 @@ def contact(status, verified_days, method, alternate):
 CLIENTS = [
     # --- SYN-001: STANDOUT B - psychotic-spectrum dx, medications unknown --------
     {
-        "client_id": "SYN-001", "age": 52, "program_type": "ACT",
+        "client_id": "SYN-001", "first_name": "Marcus", "age": 52, "program_type": "ACT",
         "team_id": "TEAM-ACT-BX-1", "other_teams": ["TEAM-HH-BX-1"], "assigned_worker_id": "W-101",
         "borough": "Bronx", "zip": "10457",
         "dx": p(["F20.9"], "clinic_ehr", 70),
@@ -68,7 +68,7 @@ CLIENTS = [
     },
     # --- SYN-002: STANDOUT A - antipsychotic + anticholinergic, non-psychotic dx --
     {
-        "client_id": "SYN-002", "age": 58, "program_type": "OUTPATIENT_CLINIC",
+        "client_id": "SYN-002", "first_name": "Linda", "age": 58, "program_type": "OUTPATIENT_CLINIC",
         "team_id": "TEAM-OPC-BK-2", "other_teams": [], "assigned_worker_id": "W-102",
         "borough": "Brooklyn", "zip": "11226",
         "dx": p(["F33.2"], "clinic_ehr", 45),
@@ -94,7 +94,7 @@ CLIENTS = [
     },
     # --- SYN-003: unsheltered, SUD records restricted (Part 2), HIE consent denied -
     {
-        "client_id": "SYN-003", "age": 44, "program_type": "COMMUNITY_TREATMENT",
+        "client_id": "SYN-003", "first_name": "Devon", "age": 44, "program_type": "COMMUNITY_TREATMENT",
         "team_id": "TEAM-COM-MN-1", "other_teams": [], "assigned_worker_id": "W-103",
         "borough": "Manhattan", "zip": "10035",
         "dx": p(["F31.9"], "clinic_ehr", 120),
@@ -117,7 +117,7 @@ CLIENTS = [
     },
     # --- SYN-004: low-risk control, rich and recent data -------------------------
     {
-        "client_id": "SYN-004", "age": 34, "program_type": "OUTPATIENT_CLINIC",
+        "client_id": "SYN-004", "first_name": "Priya", "age": 34, "program_type": "OUTPATIENT_CLINIC",
         "team_id": "TEAM-OPC-QN-1", "other_teams": [], "assigned_worker_id": "W-104",
         "borough": "Queens", "zip": "11368",
         "dx": p(["F41.1", "F43.10"], "clinic_ehr", 30),
@@ -140,7 +140,7 @@ CLIENTS = [
     },
     # --- SYN-005: older, lithium + ACE inhibitor + diuretic, alcohol, no AC -------
     {
-        "client_id": "SYN-005", "age": 68, "program_type": "HEALTH_HOME_CM",
+        "client_id": "SYN-005", "first_name": "Gloria", "age": 68, "program_type": "HEALTH_HOME_CM",
         "team_id": "TEAM-HH-BK-1", "other_teams": [], "assigned_worker_id": "W-105",
         "borough": "Brooklyn", "zip": "11212",
         "dx": p(["F31.81", "F10.20"], "clinic_ehr", 60),
@@ -167,7 +167,7 @@ CLIENTS = [
     },
     # --- SYN-006: thin file, almost everything unknown ---------------------------
     {
-        "client_id": "SYN-006", "age": 47, "program_type": "OUTPATIENT_CLINIC",
+        "client_id": "SYN-006", "first_name": "Samuel", "age": 47, "program_type": "OUTPATIENT_CLINIC",
         "team_id": "TEAM-OPC-BX-2", "other_teams": [], "assigned_worker_id": "W-106",
         "borough": "Bronx", "zip": "10467",
         "dx": p(["F33.1"], "clinic_ehr", 500),
@@ -190,7 +190,7 @@ CLIENTS = [
     },
     # --- SYN-007: stimulant + alcohol use, outdoor work, confirmed no meds --------
     {
-        "client_id": "SYN-007", "age": 41, "program_type": "COMMUNITY_TREATMENT",
+        "client_id": "SYN-007", "first_name": "Angela", "age": 41, "program_type": "COMMUNITY_TREATMENT",
         "team_id": "TEAM-COM-SI-1", "other_teams": [], "assigned_worker_id": "W-107",
         "borough": "Staten Island", "zip": "10301",
         "dx": p(["F14.20", "F10.20"], "clinic_ehr", 60),
@@ -213,7 +213,7 @@ CLIENTS = [
     },
     # --- SYN-008: stale environment data; psychotic features under a mood code ----
     {
-        "client_id": "SYN-008", "age": 45, "program_type": "SUPPORTIVE_HOUSING",
+        "client_id": "SYN-008", "first_name": "Rashid", "age": 45, "program_type": "SUPPORTIVE_HOUSING",
         "team_id": "TEAM-SH-MN-1", "other_teams": [], "assigned_worker_id": "W-108",
         "borough": "Manhattan", "zip": "10027",
         "dx": p(["F33.3"], "clinic_ehr", 60),
@@ -236,7 +236,7 @@ CLIENTS = [
     },
     # --- SYN-009: cross-facility ED use (4 visits, 3 sites), shelter --------------
     {
-        "client_id": "SYN-009", "age": 39, "program_type": "HEALTH_HOME_CM",
+        "client_id": "SYN-009", "first_name": "Teresa", "age": 39, "program_type": "HEALTH_HOME_CM",
         "team_id": "TEAM-HH-BK-1", "other_teams": ["TEAM-SHELTER-BK-3"], "assigned_worker_id": "W-105",
         "borough": "Brooklyn", "zip": "11207",
         "dx": p(["F31.9", "F10.20"], "clinic_ehr", 90),
@@ -259,7 +259,7 @@ CLIENTS = [
     },
     # --- SYN-010: moderate risk, low reachability (phone disconnected) ------------
     {
-        "client_id": "SYN-010", "age": 64, "program_type": "SUPPORTIVE_HOUSING",
+        "client_id": "SYN-010", "first_name": "Wei", "age": 64, "program_type": "SUPPORTIVE_HOUSING",
         "team_id": "TEAM-SH-QN-1", "other_teams": ["TEAM-HH-QN-2"], "assigned_worker_id": "W-109",
         "borough": "Queens", "zip": "11433",
         "dx": p(["F41.1", "F32.A"], "clinic_ehr", 50),
@@ -321,7 +321,7 @@ def flatten(c):
     ed = c["ed_use_90d"]["v"] if c["ed_use_90d"] else {}
     ct = c["contact"]
     return {
-        "client_id": c["client_id"], "age": c["age"], "program_type": c["program_type"],
+        "client_id": c["client_id"], "first_name": c["first_name"], "age": c["age"], "program_type": c["program_type"],
         "team_id": c["team_id"], "other_teams": ";".join(c["other_teams"]),
         "assigned_worker_id": c["assigned_worker_id"], "borough": c["borough"], "zip": c["zip"],
         "dx_codes": lst(c["dx"]), "dx_asof": c["dx"]["asof"] if c["dx"] else "",
