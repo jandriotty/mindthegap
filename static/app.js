@@ -190,7 +190,7 @@ function renderCard() {
   const topFactors = [...client.factors].sort((a,b) => Number(b.counted) - Number(a.counted) || b.expected - a.expected).slice(0,8);
   $('#work').innerHTML = `<div class="card">
     <button class="back" id="back">← Back to call list</button>
-    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><div class="meta-chips"><span class="meta-chip">${esc(programLabel(client.program_type))}</span><span class="meta-chip">Age ${client.age}</span><span class="meta-chip">${esc(client.borough)} ${esc(client.zip)}</span></div></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
+    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><div class="meta-chips">${client.first_name ? `<span class="meta-chip">${esc(client.first_name)} <small>(synthetic name)</small></span>` : ''}<span class="meta-chip">${esc(programLabel(client.program_type))}</span><span class="meta-chip">Age ${client.age}</span><span class="meta-chip">${esc(client.borough)} ${esc(client.zip)}</span></div></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
     <div class="status-line"><span class="band ${client.band}">${bandLabels[client.band]} engine band</span><span class="confidence-tag ${client.confidence_label.toLowerCase()}-conf">${esc(client.confidence_label)} data quality</span><span class="pill">${esc(workflowLabel(client))}</span><span class="pill">Synthetic</span></div>
 
     <section class="reason-box">
@@ -211,9 +211,16 @@ function renderCard() {
       <div class="fact"><span>Medication record</span><b>${client.medications === null ? 'Unavailable' : client.medications.length ? esc(client.medications.join(', ')) : 'Confirmed none'}</b><small>Clinician review only · no automated medication advice</small></div>
     </div>
 
+    <h3 class="section-title">Follow-up tasks · ${openTasks(client.client_id).length} open</h3>
+    <div class="task-facts">${state.tasks.length ? state.tasks.map(t => `<div class="fact ${t.status === 'Support verified' ? '' : 'open'}"><span>${esc(t.type)}</span><b>${esc(t.status)}</b><small>${esc(t.owner)} · due ${esc(t.due)}</small></div>`).join('') : '<p class="tiny">No follow-up tasks yet.</p>'}</div>
+
     <details class="factor-disclosure"><summary>Review factor evidence · ${client.factors.length} factors</summary>
       <div class="factor-list">${topFactors.map(factor => `<div class="factor-row"><div><b>${esc(factor.label)}</b><small>${esc(factor.detail || 'No finding recorded')}</small></div><span class="state ${esc(factor.state)}">${esc(factor.state)}</span><small>${esc(evidenceSource(factor))}</small></div>`).join('')}</div>
     </details>
+
+    <h3 class="section-title">Contact permission</h3>
+    <label>Consent opt-in<select id="consent"><option value="unknown" ${state.contactPermission === 'unknown' ? 'selected' : ''}>Unknown — review first</option><option value="yes" ${state.contactPermission === 'yes' ? 'selected' : ''}>Confirmed for outreach</option><option value="no" ${state.contactPermission === 'no' ? 'selected' : ''}>Not confirmed</option></select></label>
+    <p class="tiny">Confirm permission before outreach. This demo does not place calls or send messages.</p>
 
     <section class="call-prep">
       <div class="section-heading"><div><span class="eyebrow">AI CALL COPILOT</span><h3>Prepare the check-in</h3></div>${state.callCard ? '<span class="pill">Draft ready</span>' : ''}</div>
@@ -224,7 +231,6 @@ function renderCard() {
       <div class="section-heading"><div><span class="eyebrow">HUMAN REVIEW</span><h3>Record the outcome</h3></div></div>
       <form id="checkin-form">
         <div class="form-grid">
-          <label>Contact permission<select name="permission"><option value="unknown" ${state.contactPermission === 'unknown' ? 'selected' : ''}>Unknown — review first</option><option value="yes" ${state.contactPermission === 'yes' ? 'selected' : ''}>Confirmed for outreach</option><option value="no" ${state.contactPermission === 'no' ? 'selected' : ''}>Not confirmed</option></select></label>
           <label>Outcome<select name="outcome"><option>Reached</option><option>Unreachable</option><option>Declined</option></select></label>
           <label>Due date<input name="due" type="date" required value="2026-07-24"></label>
           <label>Default task owner<select name="taskOwner">${ownerOptions('Care navigator')}</select></label>
@@ -245,6 +251,11 @@ function renderCard() {
     state.owner = state.owner ? null : 'Care navigator';
     state.history.push({at:new Date().toISOString(), action:state.owner ? `Claimed by ${state.owner}` : 'Claim released'});
     persist(); render(); toast(state.owner ? 'Client claimed.' : 'Claim released.');
+  };
+  $('#consent').onchange = event => {
+    state.contactPermission = event.target.value;
+    state.history.push({at:new Date().toISOString(), action:`Contact permission set to ${state.contactPermission}`});
+    persist(); toast('Contact permission saved.');
   };
   $('#gen-card')?.addEventListener('click', () => generateCallCard(client, state));
   $('#checkin-form').onsubmit = event => saveOutcome(event, client, state);
@@ -289,7 +300,6 @@ function saveOutcome(event, client, state) {
   event.preventDefault();
   if (!state.owner) { toast('Claim this client before saving a check-in.'); return; }
   const form = new FormData(event.currentTarget);
-  state.contactPermission = String(form.get('permission'));
   state.note = String(form.get('note') || '');
   const outcome = String(form.get('outcome'));
   const due = String(form.get('due'));
