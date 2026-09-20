@@ -121,13 +121,17 @@ def _generate_with_llm(score, client: dict) -> dict:
 
     api_client = anthropic.Anthropic()
     response = api_client.messages.create(
-        model="claude-sonnet-5",
-        max_tokens=2000,
+        model="claude-haiku-4-5-20251001",
+        max_tokens=4096,
         system=_SYSTEM_PROMPT,
         messages=[{"role": "user", "content": _build_user_prompt(score, client)}],
     )
 
-    raw = json.loads(response.content[0].text)
+    text_block = next(b for b in response.content if b.type == "text")
+    text = text_block.text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    raw = json.loads(text)
 
     return {
         "client_id": score.client_id,
