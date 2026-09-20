@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0B3A5B">
+  <title>Heat Check-In · NYC</title>
+  <link rel="icon" type="image/svg+xml" href="brandmark.svg">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body data-route="home">
+<header>
+  <a class="brand" href="#home" aria-label="Heat Check-In home">
+    <img class="brandmark" src="brandmark.svg" alt="">
+    <span>Heat Check-In</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <a href="#home">Overview</a>
+    <a href="#workspace">Call sheet</a>
+    <button id="sources">Data & provenance</button>
+  </nav>
+  <span class="pill environment"><span class="status-dot"></span> NYC · Synthetic demo</span>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow light">BEHAVIORAL HEALTH · EXTREME HEAT</span>
+      <h1>Turn a heat alert into a human check-in.</h1>
+      <p>One explained call list. Only the questions that matter. Every next step has an owner.</p>
+      <div class="hero-actions">
+        <a class="primary hero-primary" href="#workspace">Open team call sheet <span>↗</span></a>
+        <button class="text-link" data-open-sources>See the data <span>↗</span></button>
+      </div>
+      <div class="hero-trust"><span>12</span> synthetic clients <b>·</b> <span>198</span> NYC neighborhoods <b>·</b> zero patient data</div>
+    </div>
+
+    <div class="hero-product" aria-label="Product preview">
+      <div class="preview-window">
+        <div class="preview-topbar"><span class="preview-brand">Heat Check-In</span><span class="preview-team">South Bronx team</span></div>
+        <div class="preview-alert"><span class="alert-orb"></span><div><small>SIMULATED ADVISORY</small><strong>Heat response is active</strong></div><span class="preview-date">Sep 20–22</span></div>
+        <div class="preview-title"><div><small>TODAY'S CALL SHEET</small><strong>4 people need action</strong></div><span>View all ↗</span></div>
+        <div class="preview-person hot"><div class="preview-avatar">01</div><div><strong>DEMO-001</strong><p>Cooling unavailable · Transport needed</p></div><span class="preview-chip">Now</span></div>
+        <div class="preview-person"><div class="preview-avatar">03</div><div><strong>DEMO-003</strong><p>Previous contact was unsuccessful</p></div><span class="preview-arrow">↗</span></div>
+        <div class="preview-resolution"><span>✓</span><div><small>CLOSED LOOP</small><strong>Support is verified—not just referred</strong></div></div>
+      </div>
+      <div class="floating-note"><b>Built for the call</b><span>not another dashboard</span></div>
+    </div>
+  </section>
+
+  <section class="workflow" aria-labelledby="workflow-title">
+    <div class="workflow-intro">
+      <span class="eyebrow light">THE WORKFLOW</span>
+      <h2 id="workflow-title">Alert in.<br>Support through.</h2>
+      <p>Designed around the care navigator’s next action—not a black-box risk score.</p>
+    </div>
+    <div class="workflow-steps">
+      <article><span>01</span><div><small>PRIORITIZE</small><h3>Know who to call first.</h3><p>Named reasons, missing information, and separately labeled neighborhood context.</p></div></article>
+      <article><span>02</span><div><small>CHECK IN</small><h3>Ask less. Learn more.</h3><p>The card starts with what is known and asks only what is missing or outdated.</p></div></article>
+      <article><span>03</span><div><small>FOLLOW THROUGH</small><h3>Close the loop.</h3><p>Route each need to an owner and keep it open until support is verified.</p></div></article>
+    </div>
+  </section>
+
+  <section class="principles">
+    <div><span class="kicker blue">WHY IT'S DIFFERENT</span><h2>Small signals.<br>Clear action.</h2></div>
+    <div class="principle-grid">
+      <article><b>01</b><h3>Explain every priority</h3><p>No unexplained clinical score. The interface shows the exact unresolved need.</p></article>
+      <article><b>02</b><h3>Keep “unknown” visible</h3><p>Missing information becomes a question, never a false assumption of safety.</p></article>
+      <article><b>03</b><h3>Remember the answer</h3><p>Each confirmed answer sharpens the next event’s call card.</p></article>
+    </div>
+  </section>
+</main>
+
+<main id="workspace" hidden>
+  <div class="workspace-title">
+    <div><span class="eyebrow">TEAM WORKSPACE · SOUTH BRONX</span><h1>Today’s heat check-ins <span class="muted">/ Demo</span></h1></div>
+    <div class="actions"><button id="reset">Reset demo</button><button id="simulate" class="primary">Simulate advisory</button></div>
+  </div>
+  <div id="event"></div>
+  <div class="split">
+    <section class="map-panel" aria-label="Neighborhood context">
+      <div class="map-head"><div><span class="eyebrow">AREA CONTEXT</span><h2>South Bronx, NYC</h2></div><span class="pill">Public HVI data</span></div>
+      <div id="heat-risk"></div>
+      <div id="leaflet-map" class="leaflet-host" aria-label="Interactive map of South Bronx neighborhoods"></div>
+      <div class="map-caption">Area overview · No client locations plotted</div>
+      <div id="neighborhoods"></div>
+      <div class="data-note"><b>Context, not a diagnosis.</b> HVI describes neighborhoods—not an individual home. Demo NTA assignments are explicit fixtures.</div>
+      <details class="history"><summary>Historical heat context · 2024</summary><div id="heat-chart"></div></details>
+    </section>
+    <section class="work-panel" aria-label="Outreach workflow">
+      <div class="panel-nav"><button data-view="list" class="active">Call list</button><button data-view="tasks">Follow-up</button><button id="guide-button">How it works ↗</button></div>
+      <div id="work"></div>
+    </section>
+  </div>
+</main>
+
+<dialog id="info"><div class="dialog-head"><h2 id="info-title"></h2><button id="close-info" aria-label="Close dialog">✕</button></div><div id="info-body"></div></dialog>
+<div role="status" id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

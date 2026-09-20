@@ -1,0 +1,119 @@
+Project Proposal 1
+
+Heat Check-In
+What it is
+When a heat advisory hits, it gives each care team(social worker) a short, explained call list, a pre-filled script of what to ask, and a next step for each answer. It saves the answers so the next flag starts from what the client said, not just their ZIP. It's delivered as a message or call sheet, not a dashboard.
+Specific subset:
+Patients with substance use disorder, mental health illnesses (more at risk to be more affected by climate events)
+Climate trigger: heat
+Location: NYC (what data, policy is accessible)
+
+Patient variables:
+Zip code
+Age
+*Refer to mental health dashboards (NEEDS RESEARCH)
+Environment variables
+Heat
+
+What to build
+Data intake: load the synthetic data and tag each value with its source and age.
+Hazard trigger: map an advisory to affected ZIPs, with a "simulate advisory" control for the demo.
+Rule engine: score clients with editable factors and weights. Output a band, named reasons, a reach rating, and a top-K list. + confidence score
+Call card: show why flagged, what's known vs unknown, and 5–6 questions. Skip anything already known.
+Need to note that consent opt-in is collected
+Decision table: map each answer to a next step and an owner. Store it as editable data for clinician review.
+Claim, log, escalate: record who has the client, the outcome, and an escalation for anyone unreachable.
+Write-back: save the answers as fields and refresh contact details. Show the next flag getting sharper.
+Demo in one line: advisory fires, list appears with reasons, open a card, log the call, escalate an unreachable client, and the flag improves next time.
+
+
+What we bring that's new
+Based on what I found, and not proven absent:
+A heat-specific, transparent ranking for this population. It shows why each client was flagged and how sure we are, including how reachable they are. The alerts and worklists I found don't do this.
+A pre-filled script. It skips known facts and asks only what's missing, including a contact-details refresh on every call. Today's screeners are static forms.
+An answer-to-action table. The city says "check on at-risk clients". We say what to do for each answer and who owns it, for clinicians to review.
+A closed loop across teams. Claim, log, escalate, follow up on the unreached, and save answers so the next flag improves.
+The card is delivered. The ranking, the script, and the loop are the contributions.
+—--
+
+Areas/tasks:
+Research (Giovanna)
+Background context
+Stats, actual policy, etc.
+Pitch slide deck/demo (Hyejin)
+User experience (User Journey)
+Presentation deck
+UI
+Data intake (different source of personal data, what social workers take in) (Ellen, Giovanna)
+Analyze top variables, assess
+Some examples: ICD-10 codes, patient identification and demographics (e.g., home address), insurance and coverage, social drivers of health and health related social needs (e.g., social isolation)
+Found:  Tab ‘Data Intake’
+
+Hazard trigger (Seren)
+Use climate data sources, should be live 
+Heat Health Risk Forecast https://heatwatch.sydney.edu.au
+	
+Input: synthetic climate hazards 
+https://github.com/healthinclimateai/nyc2026-dataset/tree/main/datasets/search-nyc-heat-vulnerability-index
+—> needs research for data source and how it’s currently computed (NYC alert system ex. Excessive -> app push, sms message )
+
+
+Output: hazard trigger score, based on how city does it
+Rule engine (Ellen)
+Sub in the variables 
+Produces risk scores from available/named variables
+This will feed into the call card
+
+Inputs: 
+
+
+—> use heat vulnerability index as input
+Generate Priority list [Seren]
+Inputs: rule engine score
+Output: sorted list, top k%, blurb for reasons, confidence level
+Call card generation (Jill)
+Take in results from rule engine
+Generate using llm
+
+Input: item/person on priority list + variables
+Output: personal questions to ask (e.g. do you work outside?) + sample script
+Decision table, claim, log, escalate (Jill)
+Feed results llm for supervisor and social worker
+
+Input: personal answers
+Output: → leave for last, don’t know how the current system works
+Synthetic data generation (Ellen)
+Synthetic user info
+Synthetic climate hazards
+Timestamp, temperature, etc. specific definitions
+	
+	User info shape: user_id, age, gender, zip code, top variables
+		Could be sparse, missing data
+	Climate hazards: → needs research 
+	
+
+Elevator Pitch
+For
+Social workers and care teams supporting New Yorkers with serious mental illness (SMI) or substance use disorders (SUD)
+Who
+Need to decide whom to check on first during a heat advisory, what to ask, and who should follow up on needs identified
+The product
+Heat Check-In
+Is
+A heat-response call sheet delivered to care teams
+Which
+Uses available care records and heat information to organize outreach in three groups:
+Unresolved need — contact first: A cooling, transportation, or other heat-related support need is already known but has not been resolved.
+Needs verification — check next: The client’s cooling plan is missing or the information is too old to rely on.
+Plan confirmed — keep visible: A workable plan was recently confirmed and no support need remains open.
+Each client’s card explains the reason for their place in the list, shows what is known or uncertain, and suggests questions to ask. After a check-in, the team assigns an action and tracks its outcome.
+Compared with
+General heat alerts and guidance that do not connect an individual care team’s caseload to outreach and follow-up
+Our product
+Helps teams act on known unmet needs, identify clients whose plans need checking, and follow through on support. Clients who cannot be reached remain visible for retry or escalation. Confirmed answers inform the next heat response.
+One-sentence pitch
+Heat Check-In turns a heat advisory into an explained outreach list—starting with unresolved cooling needs, then missing or outdated plans—and helps behavioral health care teams track each check-in through to its next action.
+30-second pitch
+A heat advisory tells care teams that it will be hot, but it does not tell them whom to check on first. Heat Check-In starts with clients whose cooling or transportation needs remain unresolved, followed by those whose heat plans are missing or outdated. The call sheet explains each priority and suggests what to ask. When a check-in reveals a need, the team assigns an action and tracks whether support was received. Clients they cannot reach stay visible for follow-up, and confirmed answers inform the next heat response.
+
+
