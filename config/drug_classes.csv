@@ -1,0 +1,42 @@
+drug,class,factor,level,note
+quetiapine,antipsychotic,med_antipsychotic_anticholinergic,1.0,CDC: impaired sweating and temperature regulation
+haloperidol,antipsychotic,med_antipsychotic_anticholinergic,1.0,CDC; also driver of heat-event mortality in schizophrenia study
+olanzapine,antipsychotic,med_antipsychotic_anticholinergic,1.0,CDC
+risperidone,antipsychotic,med_antipsychotic_anticholinergic,1.0,CDC
+clozapine,antipsychotic,med_antipsychotic_anticholinergic,1.0,Named in schizophrenia heat-event study; class inference
+zuclopenthixol,antipsychotic,med_antipsychotic_anticholinergic,1.0,Named in schizophrenia heat-event study; class inference
+aripiprazole,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+ziprasidone,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+paliperidone,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+lurasidone,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+fluphenazine,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+chlorpromazine,antipsychotic,med_antipsychotic_anticholinergic,1.0,Class inference; review with prescriber
+diphenhydramine,anticholinergic,med_antipsychotic_anticholinergic,1.0,CDC: reduced sweating (often OTC sleep aid)
+promethazine,anticholinergic,med_antipsychotic_anticholinergic,1.0,CDC
+doxylamine,anticholinergic,med_antipsychotic_anticholinergic,1.0,CDC (OTC sleep aid)
+benztropine,anticholinergic,med_antipsychotic_anticholinergic,1.0,Class inference; commonly paired with antipsychotics
+trihexyphenidyl,anticholinergic,med_antipsychotic_anticholinergic,1.0,Class inference
+lithium,lithium,med_other_heat_sensitive,1.0,CDC: dehydration and toxicity risk; narrow therapeutic index
+lorazepam,benzodiazepine,med_other_heat_sensitive,1.0,CDC: sedation and falls; anxiolytics OR 2.4 in French study
+clonazepam,benzodiazepine,med_other_heat_sensitive,1.0,CDC class; anxiolytics OR 2.4 in French study
+diazepam,benzodiazepine,med_other_heat_sensitive,1.0,CDC class; anxiolytics OR 2.4 in French study
+alprazolam,benzodiazepine,med_other_heat_sensitive,1.0,CDC class; anxiolytics OR 2.4 in French study
+amitriptyline,tricyclic,med_other_heat_sensitive,0.7,CDC: decreased sweating
+nortriptyline,tricyclic,med_other_heat_sensitive,0.7,CDC class
+clomipramine,tricyclic,med_other_heat_sensitive,0.7,CDC
+sertraline,ssri,med_other_heat_sensitive,0.5,CDC: increased sweating (fluid loss)
+fluoxetine,ssri,med_other_heat_sensitive,0.5,CDC
+escitalopram,ssri,med_other_heat_sensitive,0.5,CDC class
+citalopram,ssri,med_other_heat_sensitive,0.5,CDC class
+paroxetine,ssri,med_other_heat_sensitive,0.5,CDC class
+duloxetine,snri,med_other_heat_sensitive,0.5,CDC
+venlafaxine,snri,med_other_heat_sensitive,0.5,CDC
+methylphenidate,stimulant,med_other_heat_sensitive,0.7,CDC: raises body temperature
+amphetamine,stimulant,med_other_heat_sensitive,0.7,CDC
+furosemide,diuretic,med_other_heat_sensitive,0.7,CDC: diuretics increase risk; ACE/ARB + diuretic handled as a combination
+hydrochlorothiazide,diuretic,med_other_heat_sensitive,0.7,CDC class
+chlorthalidone,diuretic,med_other_heat_sensitive,0.7,CDC class
+lisinopril,ace_arb,med_other_heat_sensitive,0.0,Counts only in combination with a diuretic (CDC)
+enalapril,ace_arb,med_other_heat_sensitive,0.0,Counts only in combination with a diuretic (CDC)
+losartan,ace_arb,med_other_heat_sensitive,0.0,Counts only in combination with a diuretic (CDC)
+valsartan,ace_arb,med_other_heat_sensitive,0.0,Counts only in combination with a diuretic (CDC)

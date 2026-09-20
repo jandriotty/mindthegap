@@ -1,0 +1,25 @@
+# ICD-10-CM code groupings used by the engine. Review with a clinician.
+
+# Psychotic-spectrum disorders: F20-F29 (schizophrenia, schizotypal, delusional, schizoaffective...).
+psychotic_spectrum_prefixes = ["F20", "F21", "F22", "F23", "F24", "F25", "F28", "F29"]
+
+# Mood disorders coded WITH psychotic features. Policy decision: counted at a reduced level
+# (rules.toml -> dx_psychotic.levels.mood_with_psychotic_features).
+psychotic_features_codes = ["F31.2", "F31.5", "F31.64", "F32.3", "F33.3"]
+
+# Serious mood disorders counted as SMI when not psychotic-spectrum: bipolar and recurrent MDD.
+mood_smi_prefixes = ["F31", "F33"]
+
+# Substance use disorders (F10-F19 excluding F17 tobacco).
+sud_prefixes = ["F10", "F11", "F12", "F13", "F14", "F15", "F16", "F18", "F19"]
+
+# Chronic conditions that count toward the cardiometabolic factor (matches the values used in the
+# client data). Two or more, or any of the "severe" ones, gives the full level.
+cardiometabolic_conditions = [
+  "hypertension", "heart_failure", "coronary_artery_disease",
+  "type_2_diabetes", "type_1_diabetes", "obesity", "ckd", "copd",
+]
+cardiometabolic_severe = ["heart_failure", "ckd"]
+
+# Substances that count as "active" for the substance-use factor.
+active_substances = ["alcohol", "stimulant", "opioid"]

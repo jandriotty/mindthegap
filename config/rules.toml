@@ -1,0 +1,246 @@
+# Heat-risk rule table  --  DEFAULTS, NOT CALIBRATED.
+#
+# Every weight below is a starting point that MUST be reviewed and tuned by clinicians and the
+# partner (NYC DOHMH) before any real use. No outcome data was used to fit anything.
+#
+# How weights are set
+#   points = points_per_log_or * ln(or_ref)
+# i.e. a log-odds scorecard: a factor with an odds ratio of 4 gets about 4.2 points, of 2 about
+# 2.1 points. Where a published odds ratio exists, or_ref is taken from it (or_basis = "study" or
+# "study-derived"). Where the evidence is only descriptive (e.g. NYC decedent characteristics) or
+# was not found, or_ref is an explicit assumption (or_basis = "assumed") so it is easy to find and
+# change. The studies differ in population, era, and outcome (death, ED visit, admission), so these
+# are NOT comparable like-for-like and the factors overlap; treat the numbers as ordering hints.
+#
+# Fields
+#   tier      1 = strongest evidence/effect, 2 = moderate, 3 = weak or indirect
+#   group     factors in the same group do not stack: only the highest-scoring member counts
+#   levels    multipliers on the points for graded factors (e.g. fan_only counts half of "none")
+#   prior     expected fraction of the factor's points when the value is UNKNOWN (used for the
+#             expected score; the low/high scores treat unknowns as 0 / full points)
+#   ask       the question a worker would ask to resolve an unknown (feeds the call-card script)
+
+[scale]
+points_per_log_or = 3.0
+
+# ---------------------------------------------------------------------------------------------
+# Tier 1
+# ---------------------------------------------------------------------------------------------
+[factors.cooling]
+label = "No working home cooling"
+tier = 1
+or_ref = 4.0
+or_basis = "assumed"
+evidence = "NYC 2026 heat mortality report: none of 25 home-exposed decedents with AC data had or used AC; earlier NYC work calls lack of AC the most important risk factor. Chicago 1995 case-control (Semenza, NEJM 1996): working AC was the most important protective factor. No odds ratio retrieved, so or_ref is assumed."
+ask = "Is your AC or fan working, and can you control the temperature?"
+[factors.cooling.levels]
+none = 1.0
+fan_only = 0.5
+[factors.cooling.prior]
+# Citywide about 91% of households have AC (NYC HVI page), so about 9% do not. Clients are
+# assumed (uplift) to be more likely than average to lack it; scaled by the neighborhood HVI.
+base = 0.09
+client_uplift = 2.0
+hvi_scaled = true
+
+[factors.unsheltered]
+label = "Unsheltered"
+tier = 1
+group = "exposure"
+or_ref = 4.0
+or_basis = "assumed"
+evidence = "Daily heat and mortality among people experiencing homelessness (Am J Epidemiol 2024): heat-attributable fractions far above the general population (about 10-100x per summaries). NYC 2026 report: 44% of heat-stress deaths were exposed outdoors. Capped at 4.0 because reported ratios are far larger and not directly comparable."
+ask = "Where are you staying right now, and is it indoors?"
+[factors.unsheltered.prior]
+value = 0.03
+
+[factors.outdoor_exposure]
+label = "Outdoor exposure on hot days"
+tier = 1
+group = "exposure"
+or_ref = 2.0
+or_basis = "assumed"
+evidence = "CHILL'D-Out asks about time outdoors on hot days for work, sports, or recreation; NYC 2026 report: 44% of deaths exposed outdoors. No effect size found."
+ask = "How much time do you spend outdoors on hot days (work, errands, recreation)?"
+[factors.outdoor_exposure.levels]
+high = 1.0
+moderate = 0.5
+[factors.outdoor_exposure.prior]
+value = 0.15
+
+[factors.med_antipsychotic_anticholinergic]
+label = "Antipsychotic or anticholinergic medication"
+tier = 1
+group = "meds"
+or_ref = 4.0
+or_basis = "study-derived"
+evidence = "Antipsychotic dispensation: OR 2.43 (1.52-4.01) for extreme-heat-event mortality among people with schizophrenia (Sci Rep 2025). French heat-wave case-control (Eur Psychiatry 2007, mean age 83): anticholinergics OR 6.0 (1.8-19.6), antipsychotics OR 4.6 (1.9-11.2). or_ref sits between them. CDC heat-and-medications guidance (expert opinion) lists both classes for impaired sweating/thermoregulation."
+ask = "Do you take any medicine for mental health or sleep, and have you noticed feeling worse in the heat?"
+[factors.med_antipsychotic_anticholinergic.prior]
+# Medication data may be unavailable (pharmacy data is not provided). When unknown, infer from
+# diagnosis. These conditional priors are ASSUMPTIONS to be reviewed by a prescriber.
+value = 0.10
+overrides = [
+  { when = "dx_psychotic", value = 0.70 },
+  { when = "dx_mood_smi", value = 0.25 },
+]
+
+[factors.dx_psychotic]
+label = "Psychotic-spectrum illness"
+tier = 1
+group = "dx"
+or_ref = 2.5
+or_basis = "study-derived"
+evidence = "Hospitalized psychiatric patients had about twice the relative risk of dying in a heat wave (Psychiatric Services 1998); a meta-analysis (Bouchama, Arch Intern Med 2007) found pre-existing psychiatric illness among the strongest risk factors; heat-related deaths in schizophrenia rose more than 2-fold in cited work."
+ask = "Confirm current diagnosis and treating prescriber."
+[factors.dx_psychotic.levels]
+spectrum = 1.0
+# Mood disorder coded with psychotic features (e.g. F33.3, F31.2). Policy decision for clinicians.
+mood_with_psychotic_features = 0.8
+[factors.dx_psychotic.prior]
+value = 0.20
+
+[factors.dx_mood_smi]
+label = "Serious mood disorder (bipolar or recurrent major depression)"
+tier = 2
+group = "dx"
+or_ref = 1.8
+or_basis = "assumed"
+evidence = "Psychiatric illness in general is a risk factor (Bouchama 2007 meta-analysis), but the effect size for non-psychotic mood disorders was not retrieved."
+ask = "Confirm current diagnosis."
+[factors.dx_mood_smi.prior]
+value = 0.20
+
+[factors.mobility_limited]
+label = "Limited mobility or unable to self-care"
+tier = 1
+group = "function"
+or_ref = 3.0
+or_basis = "study"
+evidence = "Bouchama 2007 meta-analysis: unable to care for self OR 2.97 (1.8-4.8); confined to bed OR 6.44 (4.5-9.2)."
+ask = "Does anything make it hard for you to move around, or to get somewhere cool on your own?"
+[factors.mobility_limited.prior]
+value = 0.15
+
+[factors.not_leaving_home]
+label = "Does not leave home daily"
+tier = 1
+group = "function"
+or_ref = 3.35
+or_basis = "study"
+evidence = "Bouchama 2007 meta-analysis: not leaving home daily OR 3.35 (1.6-6.9)."
+ask = "Do you usually leave your home each day?"
+[factors.not_leaving_home.prior]
+value = 0.20
+
+# ---------------------------------------------------------------------------------------------
+# Tier 2
+# ---------------------------------------------------------------------------------------------
+[factors.med_other_heat_sensitive]
+label = "Other heat-sensitive medication"
+tier = 2
+group = "meds"
+or_ref = 2.0
+or_basis = "study-derived"
+evidence = "French heat-wave case-control: anxiolytics OR 2.4 (1.3-4.4). CDC guidance (expert opinion, not graded) lists lithium, tricyclics, SSRIs/SNRIs, stimulants, benzodiazepines, opioids, diuretics, and ACE inhibitor/ARB + diuretic combinations."
+ask = "Are you on any other regular medicines (for blood pressure, water pills, lithium, sleep)?"
+[factors.med_other_heat_sensitive.prior]
+value = 0.25
+
+[factors.substance_use_active]
+label = "Active substance use (alcohol, stimulants, opioids)"
+tier = 2
+or_ref = 2.0
+or_basis = "assumed"
+evidence = "Meta-analysis (Sci Rep 2025): SUD-related ED visits pooled OR 1.11 (1.07-1.15) at the hottest 5% of days, a small population-level effect; NYC 2000-2011 decedents: 29% had substance or alcohol use; CDC lists alcohol, cocaine/MDMA, and opioids as impairing heat tolerance (expert opinion). Set above the small pooled OR because mechanism and NYC descriptive data point higher; unresolved."
+ask = "Is alcohol or other substance use a factor on hot days right now?"
+[factors.substance_use_active.levels]
+current = 1.0
+dx_only = 0.5
+[factors.substance_use_active.prior]
+value = 0.30
+overrides = [
+  { when = "sud_restricted", value = 0.40 },
+]
+
+[factors.cardiometabolic]
+label = "Cardiovascular, metabolic, kidney, or lung condition"
+tier = 2
+or_ref = 1.8
+or_basis = "assumed"
+evidence = "NYC 2000-2011 decedents with records: about 75% had cardiovascular disease and about 90% had at least one chronic condition (descriptive only). Heat-wave meta-analyses report elevated cardiovascular (about 1.15) and respiratory (about 1.18) mortality risk at population level."
+ask = "Any heart, diabetes, kidney, or lung conditions?"
+[factors.cardiometabolic.levels]
+one = 0.6
+multi = 1.0
+[factors.cardiometabolic.prior]
+value = 0.30
+
+[factors.age]
+label = "Older age"
+tier = 2
+or_ref = 1.6
+or_basis = "assumed"
+evidence = "NYC 2026 report: highest heat-stress death rates among people 60+ (highest 80+ in 2000-2011). Less discriminating in this population."
+[factors.age.levels]
+"60_74" = 0.7
+"75_plus" = 1.0
+[factors.age.prior]
+value = 0.20
+
+[factors.lives_alone]
+label = "Lives alone"
+tier = 2
+or_ref = 1.5
+or_basis = "assumed"
+evidence = "Chicago heat-wave studies: risk of heat-related death rose for people who lived alone and were socially isolated (Semenza, NEJM 1996). No odds ratio retrieved."
+ask = "Who lives with you, and who could check on you on a hot day?"
+[factors.lives_alone.prior]
+value = 0.30
+
+# ---------------------------------------------------------------------------------------------
+# Tier 3
+# ---------------------------------------------------------------------------------------------
+[factors.place_hvi]
+label = "High neighborhood heat vulnerability (NYC HVI)"
+tier = 3
+or_ref = 1.6
+or_basis = "assumed"
+evidence = "NYC Heat Vulnerability Index, 1-5 by ZIP tabulation area, validated against 2000-2011 heat mortality. NOTE: the HVI composite includes income and race-related indicators, so using it imports those. Kept for now; the partner or team may change this to component indicators (surface temperature, green space, AC prevalence) only. Overlaps with the cooling factor: when a client's own cooling status is known that takes over."
+[factors.place_hvi.levels]
+"5" = 1.0
+"4" = 0.7
+"3" = 0.4
+"2" = 0.15
+"1" = 0.0
+[factors.place_hvi.prior]
+value = 0.40
+
+[factors.energy_insecurity]
+label = "Energy insecurity (utility shut-off threat)"
+tier = 3
+or_ref = 1.4
+or_basis = "assumed"
+evidence = "NYC 2026 report: about 23% of NY adults were energy insecure in 2022 (used as the unknown prior); no effect size found."
+ask = "In the past year has a utility company threatened to shut off your service?"
+[factors.energy_insecurity.prior]
+value = 0.23
+
+[factors.ed_pattern]
+label = "Repeated ED use across sites"
+tier = 3
+or_ref = 1.5
+or_basis = "assumed"
+evidence = "No heat-specific evidence found; used as a marker of instability and fragmented care. Requires HIE visibility (consent)."
+[factors.ed_pattern.prior]
+value = 0.10
+
+[factors.recency_gap]
+label = "Long gap since last billed service"
+tier = 3
+or_ref = 1.2
+or_basis = "assumed"
+evidence = "Weak signal: service data covers billed encounters only, so a gap is not proof of disengagement."
+[factors.recency_gap.levels]
+"60_119" = 0.5
+"120_plus" = 1.0

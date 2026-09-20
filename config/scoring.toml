@@ -1,0 +1,127 @@
+# Scoring, hazard, confidence, and reach settings  --  DEFAULTS, NOT CALIBRATED.
+# Everything here is an assumption to be tuned with clinicians. See docs/rule-engine.md.
+
+# Priority bands are applied to priority points = vulnerability points x hazard multiplier.
+# Thresholds were chosen so the 10 synthetic test clients spread plausibly on the peak day
+# (roughly 2 urgent, 5 high, 2 moderate, 1 low); they are NOT calibrated to anything real.
+[bands]
+urgent = 18.0
+high = 12.0
+moderate = 6.0
+
+[capacity]
+default_k = 3            # outreach slots per team per day
+# per-team overrides: [capacity.teams]  "TEAM-HH-BK-1" = 2
+
+[hvi]
+# Scales the prior probability that a client lacks working cooling when that is unknown.
+[hvi.multiplier]
+"1" = 0.6
+"2" = 0.8
+"3" = 1.0
+"4" = 1.5
+"5" = 2.0
+
+[hazard]
+horizon_days = 2          # look at today plus this many days ahead
+[hazard.level_multiplier]
+"0" = 0.0
+"1" = 0.5
+"2" = 0.8
+"3" = 1.0
+"4" = 1.25
+[hazard.alert_level_floor]
+# A watch means warning-level heat is expected, so it implies at least level 3.
+extreme_heat_watch = 3
+heat_advisory = 2
+extreme_heat_warning = 3
+[hazard.phase]
+action_max_days = 1               # an advisory or warning for today or tomorrow = "action"
+prepare_forecast_max_lead = 3     # forecast-only "prepare" needs lead <= 3 days
+prepare_forecast_min_level = 3
+aware_forecast_min_level = 2      # anything weaker or further out is awareness only
+[hazard.trust]
+# Trust in the hazard information. Alerts are official products; forecast trust falls with lead
+# time, loosely following the illustrative max-temperature error growth (about 2-3F at day 1 to
+# about 5F by day 7).
+watch = 0.85
+advisory_or_warning = 0.95
+[hazard.trust.forecast_by_lead]
+"1" = 0.90
+"2" = 0.85
+"3" = 0.75
+"4" = 0.60
+"5" = 0.50
+"6" = 0.40
+"7" = 0.35
+
+[confidence]
+staleness_weight = 0.3     # how much stale-but-present evidence reduces confidence
+label_high = 0.75
+label_medium = 0.50
+check_in_band_span = 2     # priority band range this wide (or more) triggers a check-in prompt
+[confidence.reliability]
+# Source reliability multipliers (assumed).
+clinic_ehr = 1.0
+clinic_med_list = 1.0
+prescriber_note = 1.0
+record = 1.0
+hie_alert = 0.95
+intake_assessment = 0.90
+progress_note = 0.90
+housing_provider = 0.85
+billing_system = 0.85
+client_self_report = 0.80
+street_outreach_note = 0.80
+reference_table = 0.80
+unknown_source = 0.70
+
+[ed_pattern]
+min_sites = 2
+min_visits = 3
+
+[recency_gap]
+days_moderate = 60
+days_long = 120
+
+[age]
+older = 60
+oldest = 75
+
+[freshness_days]
+# Evidence older than this is "stale": a stale protective/absent value is treated as unknown,
+# and stale present values lower confidence.
+dx = 1095
+medications = 180
+chronic_conditions = 730
+substance_use_current = 180
+housing_type = 730
+floor_level = 1095
+cooling_status = 365
+lives_alone = 730
+mobility_limited = 365
+leaves_home_daily = 365
+outdoor_exposure = 365
+energy_insecurity = 365
+ed_use_90d = 60
+contact = 365
+
+[reach]
+alternate_default = 0.50
+overall_high = 0.70
+overall_medium = 0.40
+overall_low = 0.15
+[reach.phone_status]
+verified = 0.90
+unverified = 0.50
+disconnected = 0.05
+none_on_file = 0.0
+[reach.contact_age_factor]
+# The worst matching entry applies (age in days since the phone number was verified).
+over_365 = 0.6
+over_180 = 0.8
+[reach.alternate_score]
+housing_onsite_staff = 0.60
+family_member = 0.55
+shelter_staff = 0.55
+street_outreach_team = 0.35
