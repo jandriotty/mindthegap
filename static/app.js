@@ -190,7 +190,7 @@ function renderCard() {
   const topFactors = [...client.factors].sort((a,b) => Number(b.counted) - Number(a.counted) || b.expected - a.expected).slice(0,8);
   $('#work').innerHTML = `<div class="card">
     <button class="back" id="back">← Back to call list</button>
-    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><p>${esc(programLabel(client.program_type))} · Age ${client.age} · ${esc(client.borough)} ${esc(client.zip)}</p></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
+    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><div class="meta-chips"><span class="meta-chip">${esc(programLabel(client.program_type))}</span><span class="meta-chip">Age ${client.age}</span><span class="meta-chip">${esc(client.borough)} ${esc(client.zip)}</span></div></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
     <div class="status-line"><span class="band ${client.band}">${bandLabels[client.band]} engine band</span><span class="confidence-tag ${client.confidence_label.toLowerCase()}-conf">${esc(client.confidence_label)} data quality</span><span class="pill">${esc(workflowLabel(client))}</span><span class="pill">Synthetic</span></div>
 
     <section class="reason-box">
