@@ -1,0 +1,36 @@
+borough,date,weekday,tmax_f,tmin_f,overnight_low_f,hi_max_f,hi_max_time,rh_at_hi_max_pct,hours_hi_ge_95,hours_hi_ge_100,hours_hi_ge_105,wind_mph_mean,solar_radiation_peak_wm2,scenario_note,consecutive_days_hi_ge_95,product,hazard_level,hazard_label,peak_window_local
+Manhattan,2026-07-20,Mon,90.0,73.1,75.0,91.7,2026-07-20T16:00:00,43.0,0,0,0,9,880,Warm and humid start,0,none,1,minor,
+Manhattan,2026-07-21,Tue,92.9,75.0,77.1,96.9,2026-07-21T16:00:00,43.3,5,0,0,8,900,Heat building; first day near 95F heat index,1,heat_advisory,2,moderate,14:00-19:00
+Manhattan,2026-07-22,Wed,95.0,77.1,80.0,101.1,2026-07-22T16:00:00,43.8,9,3,0,7,900,Hot and humid; advisory-level heat index,2,heat_advisory,3,major,13:00-22:00
+Manhattan,2026-07-23,Thu,97.9,80.0,81.1,107.3,2026-07-23T16:00:00,43.5,13,10,5,6,910,"Peak day; very humid, little overnight relief",3,extreme_heat_warning,4,extreme,11:00-00:00
+Manhattan,2026-07-24,Fri,96.9,81.1,75.1,105.9,2026-07-24T15:00:00,44.7,11,8,3,6,880,Second peak day; warm night,4,extreme_heat_warning,4,extreme,11:00-22:00
+Manhattan,2026-07-25,Sat,90.9,75.1,66.1,95.8,2026-07-25T15:00:00,48.8,3,0,0,8,620,Clouds build; front and storms late,5,heat_advisory,3,major,14:00-17:00
+Manhattan,2026-07-26,Sun,81.9,66.1,64.1,81.4,2026-07-26T16:00:00,39.6,0,0,0,11,850,Front passed; dry and comfortable,0,none,0,little_to_no_risk,
+Bronx,2026-07-20,Mon,89.5,72.6,74.5,91.1,2026-07-20T16:00:00,43.7,0,0,0,9,880,Warm and humid start,0,none,1,minor,
+Bronx,2026-07-21,Tue,92.4,74.5,76.6,96.3,2026-07-21T16:00:00,43.9,5,0,0,8,900,Heat building; first day near 95F heat index,1,heat_advisory,2,moderate,14:00-19:00
+Bronx,2026-07-22,Wed,94.5,76.6,79.5,100.4,2026-07-22T16:00:00,44.5,8,3,0,7,900,Hot and humid; advisory-level heat index,2,heat_advisory,3,major,13:00-21:00
+Bronx,2026-07-23,Thu,97.4,79.5,80.6,106.7,2026-07-23T16:00:00,44.2,12,9,5,6,910,"Peak day; very humid, little overnight relief",3,extreme_heat_warning,4,extreme,11:00-23:00
+Bronx,2026-07-24,Fri,96.4,80.6,74.6,105.2,2026-07-24T15:00:00,45.4,11,7,2,6,880,Second peak day; warm night,4,extreme_heat_warning,4,extreme,11:00-22:00
+Bronx,2026-07-25,Sat,90.4,74.6,65.6,95.2,2026-07-25T15:00:00,49.6,1,0,0,8,620,Clouds build; front and storms late,5,heat_advisory,3,major,15:00-16:00
+Bronx,2026-07-26,Sun,81.4,65.6,63.6,81.0,2026-07-26T16:00:00,40.3,0,0,0,11,850,Front passed; dry and comfortable,0,none,0,little_to_no_risk,
+Brooklyn,2026-07-20,Mon,89.5,72.6,74.5,91.1,2026-07-20T16:00:00,43.7,0,0,0,9,880,Warm and humid start,0,none,1,minor,
+Brooklyn,2026-07-21,Tue,92.4,74.5,76.6,96.3,2026-07-21T16:00:00,43.9,5,0,0,8,900,Heat building; first day near 95F heat index,1,heat_advisory,2,moderate,14:00-19:00
+Brooklyn,2026-07-22,Wed,94.5,76.6,79.5,100.4,2026-07-22T16:00:00,44.5,8,3,0,7,900,Hot and humid; advisory-level heat index,2,heat_advisory,3,major,13:00-21:00
+Brooklyn,2026-07-23,Thu,97.4,79.5,80.6,106.7,2026-07-23T16:00:00,44.2,12,9,5,6,910,"Peak day; very humid, little overnight relief",3,extreme_heat_warning,4,extreme,11:00-23:00
+Brooklyn,2026-07-24,Fri,96.4,80.6,74.6,105.2,2026-07-24T15:00:00,45.4,11,7,2,6,880,Second peak day; warm night,4,extreme_heat_warning,4,extreme,11:00-22:00
+Brooklyn,2026-07-25,Sat,90.4,74.6,65.6,95.2,2026-07-25T15:00:00,49.6,1,0,0,8,620,Clouds build; front and storms late,5,heat_advisory,3,major,15:00-16:00
+Brooklyn,2026-07-26,Sun,81.4,65.6,63.6,81.0,2026-07-26T16:00:00,40.3,0,0,0,11,850,Front passed; dry and comfortable,0,none,0,little_to_no_risk,
+Queens,2026-07-20,Mon,89.0,72.1,74.0,90.6,2026-07-20T16:00:00,44.4,0,0,0,9,880,Warm and humid start,0,none,1,minor,
+Queens,2026-07-21,Tue,91.9,74.0,76.1,95.7,2026-07-21T16:00:00,44.6,3,0,0,8,900,Heat building; first day near 95F heat index,1,heat_advisory,2,moderate,15:00-18:00
+Queens,2026-07-22,Wed,94.0,76.1,79.0,99.8,2026-07-22T16:00:00,45.2,8,0,0,7,900,Hot and humid; advisory-level heat index,2,heat_advisory,2,moderate,13:00-21:00
+Queens,2026-07-23,Thu,96.9,79.0,80.1,106.1,2026-07-23T16:00:00,44.9,12,8,3,6,910,"Peak day; very humid, little overnight relief",3,extreme_heat_warning,4,extreme,11:00-23:00
+Queens,2026-07-24,Fri,95.9,80.1,74.1,104.6,2026-07-24T15:00:00,46.1,11,7,0,6,880,Second peak day; warm night,4,heat_advisory,3,major,11:00-22:00
+Queens,2026-07-25,Sat,89.9,74.1,65.1,94.6,2026-07-25T15:00:00,50.4,0,0,0,8,620,Clouds build; front and storms late,0,none,1,minor,
+Queens,2026-07-26,Sun,80.9,65.1,63.1,80.7,2026-07-26T16:00:00,40.9,0,0,0,11,850,Front passed; dry and comfortable,0,none,0,little_to_no_risk,
+Staten Island,2026-07-20,Mon,87.5,70.6,72.5,89.0,2026-07-20T16:00:00,46.6,0,0,0,9,880,Warm and humid start,0,none,0,little_to_no_risk,
+Staten Island,2026-07-21,Tue,90.4,72.5,74.6,94.0,2026-07-21T16:00:00,46.8,0,0,0,8,900,Heat building; first day near 95F heat index,0,none,1,minor,
+Staten Island,2026-07-22,Wed,92.5,74.6,77.5,98.0,2026-07-22T16:00:00,47.3,6,0,0,7,900,Hot and humid; advisory-level heat index,1,heat_advisory,2,moderate,14:00-20:00
+Staten Island,2026-07-23,Thu,95.4,77.5,78.6,104.1,2026-07-23T16:00:00,47.0,10,7,0,6,910,"Peak day; very humid, little overnight relief",2,heat_advisory,3,major,12:00-22:00
+Staten Island,2026-07-24,Fri,94.4,78.6,72.6,102.7,2026-07-24T15:00:00,48.3,9,5,0,6,880,Second peak day; warm night,3,heat_advisory,3,major,12:00-21:00
+Staten Island,2026-07-25,Sat,88.4,72.6,63.6,92.8,2026-07-25T15:00:00,52.8,0,0,0,8,620,Clouds build; front and storms late,0,none,1,minor,
+Staten Island,2026-07-26,Sun,79.4,63.6,61.6,79.1,2026-07-26T16:00:00,43.0,0,0,0,11,850,Front passed; dry and comfortable,0,none,0,little_to_no_risk,
