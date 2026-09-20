@@ -7,6 +7,16 @@ const OWNERS = ['Care navigator','Housing staff','Resource partner','Clinician',
 const TASK_STATUSES = ['Requested','Accepted','In progress','Blocked','Support verified'];
 const bandLabels = {urgent:'Urgent',high:'High',moderate:'Moderate',low:'Low',monitor:'Monitor'};
 const bandOrder = ['urgent','high','moderate','low','monitor'];
+const PROGRAM_LABELS = {
+  ACT: 'Assertive Community Treatment (ACT)',
+  HEALTH_HOME_CM: 'Health Home Care Management',
+  COMMUNITY_TREATMENT: 'Community Treatment Program',
+  SUPPORTIVE_HOUSING: 'Supportive Housing',
+  OUTPATIENT_CLINIC: 'Outpatient Clinic',
+};
+function programLabel(code) {
+  return PROGRAM_LABELS[code] || String(code ?? '').replaceAll('_',' ').toLowerCase().replace(/\b\w/g, ch => ch.toUpperCase());
+}
 const HVI_COLORS = {1:'#73a68e',2:'#b8c8a3',3:'#d7bf7d',4:'#d39568',5:'#b76c5a'};
 const ZIP_CENTROIDS = {
   '10027':[40.8116,-73.9527], '10035':[40.8009,-73.9303],
@@ -149,7 +159,7 @@ function renderList() {
         return `<button class="client" data-client="${esc(client.client_id)}" data-zip="${esc(client.zip)}">
           <div class="client-top"><strong>${esc(client.client_id)} <span aria-hidden="true">↗</span></strong><div><span class="band ${client.band}">${bandLabels[client.band]}</span><span class="confidence-tag ${client.confidence_label.toLowerCase()}-conf">${esc(client.confidence_label)} data</span></div></div>
           <p>${esc(client.reasons.slice(0,2).map(reason => reason.text).join(' · ')) || 'No active factors identified'}</p>
-          <small>${esc(client.program_type)} · Age ${client.age} · ${esc(client.borough)} ${esc(client.zip)}<br>Rank #${client.rank} on ${esc(client.team_id)} · Reach ${esc(client.reach.label)} · <b>${esc(workflowLabel(client))}</b>${state.owner ? ` · ${esc(state.owner)}` : ''}</small>
+          <small>${esc(programLabel(client.program_type))} · Age ${client.age} · ${esc(client.borough)} ${esc(client.zip)}<br>Rank #${client.rank} on ${esc(client.team_id)} · Reach ${esc(client.reach.label)} · <b>${esc(workflowLabel(client))}</b>${state.owner ? ` · ${esc(state.owner)}` : ''}</small>
         </button>`;
       }).join('') : '<div class="empty">No clients match this filter. Other bands remain available.</div>'}
     </div>
@@ -180,7 +190,7 @@ function renderCard() {
   const topFactors = [...client.factors].sort((a,b) => Number(b.counted) - Number(a.counted) || b.expected - a.expected).slice(0,8);
   $('#work').innerHTML = `<div class="card">
     <button class="back" id="back">← Back to call list</button>
-    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><p>${esc(client.program_type)} · Age ${client.age} · ${esc(client.borough)} ${esc(client.zip)}</p></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
+    <div class="card-title"><div><h2>${esc(client.client_id)}</h2><p>${esc(programLabel(client.program_type))} · Age ${client.age} · ${esc(client.borough)} ${esc(client.zip)}</p></div><button id="claim" class="${state.owner ? 'claimed' : ''}">${state.owner ? `Claimed · ${esc(state.owner)}` : 'Claim client'}</button></div>
     <div class="status-line"><span class="band ${client.band}">${bandLabels[client.band]} engine band</span><span class="confidence-tag ${client.confidence_label.toLowerCase()}-conf">${esc(client.confidence_label)} data quality</span><span class="pill">${esc(workflowLabel(client))}</span><span class="pill">Synthetic</span></div>
 
     <section class="reason-box">
